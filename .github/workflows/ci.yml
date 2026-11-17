@@ -1,0 +1,40 @@
+name: CI — Build e Validação
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Build do frontend (Vite + React)
+        run: npm run build
+
+      - name: Validar servidor Express e endpoint .ics
+        run: |
+          node server.js &
+          SERVER_PID=$!
+          sleep 2
+
+          curl -fsS http://localhost:3001/health | grep -q '"status":"ok"'
+          curl -fsS http://localhost:3001/ | grep -q 'Encontro CCB Jardim Olga'
+          curl -fsS http://localhost:3001/api/calendar.ics | grep -q 'DTSTART;TZID=America/Sao_Paulo:20261121T113000'
+
+          kill $SERVER_PID

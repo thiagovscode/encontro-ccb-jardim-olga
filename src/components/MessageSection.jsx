@@ -1,0 +1,32 @@
+import { EVENT_DATA } from '../data/eventData';
+import { OrchestraStrip, StaffClefDivider } from './MusicOrnament';
+
+export default function MessageSection() {
+  return (
+    <section id="mensagem" className="section section-message" aria-labelledby="message-heading">
+      <div className="container">
+        <div className="message-card reveal">
+          <p className="eyebrow">Comunhão e Gratidão</p>
+          <h2 id="message-heading" className="section-title">
+            Uma Palavra aos Irmãos
+          </h2>
+
+          <StaffClefDivider />
+
+          <div className="message-body">
+            {EVENT_DATA.messageParagraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+
+          <blockquote className="scripture-box">
+            <p className="scripture-text">"{EVENT_DATA.scripture.text}"</p>
+            <footer className="scripture-ref">{EVENT_DATA.scripture.reference}</footer>
+          </blockquote>
+
+          <OrchestraStrip />
+        </div>
+      </div>
+    </section>
+  );
+}
