@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Download, MessageCircle, Share2 } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
 import { renderShareCardCanvas } from '../utils/shareCardCanvas';
+import { ClefWatermark, StaffClefDivider } from './CcbVisuals';
 
 export default function ShareWhatsAppSection({ countdown }) {
   const canvasRef = useRef(null);
@@ -22,15 +23,16 @@ export default function ShareWhatsAppSection({ countdown }) {
   const currentUrl =
     typeof window !== 'undefined' ? window.location.href.split('#')[0] : '';
 
+  // Mensagem para o WhatsApp contendo somente "Chácara Sthefani" (Regra Obrigatória nº 7)
   const whatsappMessage = [
     `*${EVENT_DATA.title}*`,
-    EVENT_DATA.subtitle,
+    `"${EVENT_DATA.subtitle}"`,
     '',
     `Data: ${EVENT_DATA.dateFormatted}`,
     `Horário: ${EVENT_DATA.timeFormatted}`,
-    `Local: ${EVENT_DATA.venueName} — ${EVENT_DATA.addressShort}`,
+    `Local: ${EVENT_DATA.venueName}`,
     '',
-    `Confira o convite completo: ${currentUrl}`
+    `Confira o convite e a contagem regressiva: ${currentUrl}`
   ].join('\n');
 
   const whatsappHref = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
@@ -47,7 +49,7 @@ export default function ShareWhatsAppSection({ countdown }) {
 
   function handleDownload() {
     triggerDownload();
-    setFeedback('Imagem do convite salva. Você já pode enviá-la pelo WhatsApp.');
+    setFeedback('Imagem do convite salva. Você já pode enviá-la aos irmãos pelo WhatsApp.');
   }
 
   function handleShareImage() {
@@ -65,10 +67,10 @@ export default function ShareWhatsAppSection({ countdown }) {
         try {
           await navigator.share({
             title: EVENT_DATA.shortTitle,
-            text: `${EVENT_DATA.subtitle} ${EVENT_DATA.dateFormatted} ${EVENT_DATA.timeFormatted}`,
+            text: `${EVENT_DATA.subtitle} ${EVENT_DATA.dateFormatted} ${EVENT_DATA.timeFormatted} • ${EVENT_DATA.venueName}`,
             files: [file]
           });
-          setFeedback('Convite compartilhado.');
+          setFeedback('Convite compartilhado com sucesso.');
           return;
         } catch (err) {
           if (err && err.name === 'AbortError') return;
@@ -76,7 +78,7 @@ export default function ShareWhatsAppSection({ countdown }) {
       }
 
       triggerDownload();
-      setFeedback('Imagem baixada! Anexe o arquivo no WhatsApp Web ou no seu celular.');
+      setFeedback('Imagem baixada! Você pode anexá-la no WhatsApp Web ou pelo celular.');
     }, 'image/png');
   }
 
@@ -84,23 +86,31 @@ export default function ShareWhatsAppSection({ countdown }) {
     <section id="compartilhar" className="section section-share" aria-labelledby="share-heading">
       <div className="container">
         <div className="section-header reveal">
-          <p className="eyebrow">Compartilhe com os Irmãos</p>
+          <p className="eyebrow">Compartilhe com a Irmandade</p>
           <h2 id="share-heading" className="section-title">
             Convite para WhatsApp
           </h2>
           <p className="section-caption">
-            Gere uma imagem atualizada com a contagem regressiva e os detalhes do encontro para enviar aos irmãos.
+            Gere uma imagem atualizada com a contagem regressiva, as claves e os detalhes do encontro para enviar aos irmãos.
           </p>
+          <StaffClefDivider />
         </div>
 
         <div className="share-card reveal">
+          <div className="card-corner card-corner--left" aria-hidden="true">
+            <ClefWatermark type="treble" />
+          </div>
+          <div className="card-corner card-corner--right" aria-hidden="true">
+            <ClefWatermark type="bass" />
+          </div>
+
           <div className="share-preview-wrap">
             <canvas
               ref={canvasRef}
               className="share-canvas"
               width={1080}
               height={1350}
-              aria-label="Prévia do cartão digital de convite com contador regressivo"
+              aria-label="Prévia do cartão digital de convite com contador regressivo e elementos musicais CCB"
             />
           </div>
 

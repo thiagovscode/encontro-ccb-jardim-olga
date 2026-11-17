@@ -1,39 +1,5 @@
 import { EVENT_DATA } from '../data/eventData';
 
-function drawOliveSprig(ctx, x, y, scaleX, scaleY) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.scale(scaleX, scaleY);
-  ctx.strokeStyle = 'rgba(82, 94, 71, 0.45)';
-  ctx.fillStyle = 'rgba(122, 134, 110, 0.22)';
-  ctx.lineWidth = 2;
-
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.quadraticCurveTo(45, 22, 95, 75);
-  ctx.stroke();
-
-  const leaves = [
-    { cx: 28, cy: 14, angle: -0.45, rx: 16, ry: 6 },
-    { cx: 52, cy: 32, angle: 0.75, rx: 16, ry: 6 },
-    { cx: 68, cy: 48, angle: -0.35, rx: 15, ry: 5.5 },
-    { cx: 88, cy: 68, angle: 0.6, rx: 14, ry: 5 }
-  ];
-
-  leaves.forEach((leaf) => {
-    ctx.save();
-    ctx.translate(leaf.cx, leaf.cy);
-    ctx.rotate(leaf.angle);
-    ctx.beginPath();
-    ctx.ellipse(0, 0, leaf.rx, leaf.ry, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-  });
-
-  ctx.restore();
-}
-
 function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   const words = text.split(' ');
   let line = '';
@@ -64,67 +30,112 @@ export function renderShareCardCanvas(canvas, countdownState) {
   const w = canvas.width;
   const h = canvas.height;
 
-  ctx.fillStyle = '#FAF8F4';
+  // Fundo branco limpo com textura sutil em off-white e cinza arquitetônico
+  ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, w, h);
 
-  const grad = ctx.createRadialGradient(w / 2, h * 0.35, 60, w / 2, h * 0.45, 760);
-  grad.addColorStop(0, 'rgba(255, 253, 249, 0.95)');
-  grad.addColorStop(1, 'rgba(242, 236, 224, 0.65)');
+  const grad = ctx.createRadialGradient(w / 2, h * 0.35, 60, w / 2, h * 0.45, 780);
+  grad.addColorStop(0, '#FFFFFF');
+  grad.addColorStop(0.65, '#F8F9FA');
+  grad.addColorStop(1, '#EEF0F3');
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, w, h);
 
-  // Moldura dupla clássica em dourado champagne
-  ctx.strokeStyle = '#B89F72';
-  ctx.lineWidth = 3;
-  ctx.strokeRect(48, 48, w - 96, h - 96);
+  // Moldura dupla geométrica inspirada nos frisos das casas de oração CCB
+  // Moldura externa em cinza arquitetônico
+  ctx.strokeStyle = '#8C939E';
+  ctx.lineWidth = 2.5;
+  ctx.strokeRect(44, 44, w - 88, h - 88);
 
-  ctx.strokeStyle = 'rgba(184, 159, 114, 0.45)';
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(66, 66, w - 132, h - 132);
+  // Moldura interna em champagne/dourado suave
+  ctx.strokeStyle = 'rgba(194, 166, 118, 0.55)';
+  ctx.lineWidth = 1.25;
+  ctx.strokeRect(58, 58, w - 116, h - 116);
 
-  drawOliveSprig(ctx, 84, 84, 1, 1);
-  drawOliveSprig(ctx, w - 84, 84, -1, 1);
-  drawOliveSprig(ctx, 84, h - 84, 1, -1);
-  drawOliveSprig(ctx, w - 84, h - 84, -1, -1);
-
-  ctx.textAlign = 'center';
-
-  ctx.fillStyle = '#525E47';
-  ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('CONVITE ESPECIAL', w / 2, 170);
-
-  ctx.fillStyle = '#2B2D28';
-  ctx.font = '600 62px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText('ENCONTRO CCB', w / 2, 255);
-  ctx.fillText('JARDIM OLGA', w / 2, 325);
-
-  ctx.fillStyle = '#4D5148';
-  ctx.font = 'italic 400 32px "Cormorant Garamond", Georgia, serif';
-  wrapText(ctx, `"${EVENT_DATA.subtitle}"`, w / 2, 395, w - 220, 44);
-
-  ctx.strokeStyle = 'rgba(184, 159, 114, 0.6)';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(w / 2 - 140, 485);
-  ctx.lineTo(w / 2 + 140, 485);
-  ctx.stroke();
-
-  // Bloco do contador ao vivo
-  const boxX = 120;
-  const boxY = 535;
-  const boxW = w - 240;
-  const boxH = 260;
-
-  ctx.fillStyle = '#FFFDF9';
-  ctx.fillRect(boxX, boxY, boxW, boxH);
-  ctx.strokeStyle = 'rgba(184, 159, 114, 0.55)';
+  // Cantoneiras arquitetônicas sutis
+  const corners = [
+    { x: 44, y: 44, dx: 1, dy: 1 },
+    { x: w - 44, y: 44, dx: -1, dy: 1 },
+    { x: 44, y: h - 44, dx: 1, dy: -1 },
+    { x: w - 44, y: h - 44, dx: -1, dy: -1 }
+  ];
+  ctx.strokeStyle = '#4A515D';
   ctx.lineWidth = 2;
+  corners.forEach((c) => {
+    ctx.beginPath();
+    ctx.moveTo(c.x, c.y + c.dy * 28);
+    ctx.lineTo(c.x, c.y);
+    ctx.lineTo(c.x + c.dx * 28, c.y);
+    ctx.stroke();
+  });
+
+  // Claves desenhadas nos cantos superiores
+  // Clave de Sol (Superior Esquerdo)
+  ctx.fillStyle = '#4A515D';
+  ctx.font = '400 48px "Cormorant Garamond", Georgia, serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('𝄞', 95, 115);
+
+  // Clave de Fá (Superior Direito)
+  ctx.fillText('𝄢', w - 95, 115);
+
+  // Eyebrow
+  ctx.fillStyle = '#5B6852';
+  ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('CONVITE ESPECIAL', w / 2, 145);
+
+  // Título principal
+  ctx.fillStyle = '#242830';
+  ctx.font = '600 58px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText('ENCONTRO CCB', w / 2, 230);
+  ctx.fillText('JARDIM OLGA', w / 2, 298);
+
+  // Subtítulo
+  ctx.fillStyle = '#4A515D';
+  ctx.font = 'italic 400 30px "Cormorant Garamond", Georgia, serif';
+  wrapText(ctx, `"${EVENT_DATA.subtitle}"`, w / 2, 362, w - 240, 42);
+
+  // Pauta musical clássica de 5 linhas com Clave de Sol e Clave de Fá
+  const staffY = 432;
+  ctx.strokeStyle = 'rgba(140, 147, 158, 0.45)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 5; i++) {
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 200, staffY + i * 8);
+    ctx.lineTo(w / 2 + 200, staffY + i * 8);
+    ctx.stroke();
+  }
+  ctx.fillStyle = '#5B6852';
+  ctx.font = '400 28px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText('𝄞', w / 2 - 165, staffY + 28);
+  ctx.fillText('𝄢', w / 2 + 165, staffY + 26);
+
+  // Notas solfejadas no divisor
+  ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
+  ctx.fillStyle = '#8C939E';
+  ctx.fillText('DÓ • MI • SOL • SI • DÓ', w / 2, staffY + 54);
+
+  // Bloco da Contagem Regressiva em tempo real
+  const boxX = 110;
+  const boxY = 515;
+  const boxW = w - 220;
+  const boxH = 265;
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(boxX, boxY, boxW, boxH);
+  ctx.strokeStyle = '#8C939E';
+  ctx.lineWidth = 1.5;
   ctx.strokeRect(boxX, boxY, boxW, boxH);
 
+  // Friso interno no box do contador
+  ctx.strokeStyle = 'rgba(194, 166, 118, 0.4)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(boxX + 6, boxY + 6, boxW - 12, boxH - 12);
+
   if (countdownState && countdownState.phase === 'upcoming') {
-    ctx.fillStyle = '#70746A';
-    ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('CONTAGEM REGRESSIVA', w / 2, boxY + 54);
+    ctx.fillStyle = '#7A8771';
+    ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('CONTAGEM REGRESSIVA PARA O ENCONTRO', w / 2, boxY + 50);
 
     const items = [
       { val: countdownState.days, label: 'DIAS' },
@@ -135,66 +146,69 @@ export function renderShareCardCanvas(canvas, countdownState) {
     const colW = boxW / 3;
     items.forEach((item, idx) => {
       const cx = boxX + colW * idx + colW / 2;
-      ctx.fillStyle = '#525E47';
-      ctx.font = '600 84px "Cormorant Garamond", Georgia, serif';
-      ctx.fillText(item.val, cx, boxY + 155);
+      ctx.fillStyle = '#242830';
+      ctx.font = '600 82px "Cormorant Garamond", Georgia, serif';
+      ctx.fillText(item.val, cx, boxY + 152);
 
-      ctx.fillStyle = '#70746A';
-      ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(item.label, cx, boxY + 205);
+      ctx.fillStyle = '#8C939E';
+      ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(item.label, cx, boxY + 202);
 
       if (idx < items.length - 1) {
-        ctx.strokeStyle = 'rgba(184, 159, 114, 0.35)';
-        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = 'rgba(140, 147, 158, 0.35)';
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
-        ctx.moveTo(boxX + colW * (idx + 1), boxY + 85);
+        ctx.moveTo(boxX + colW * (idx + 1), boxY + 80);
         ctx.lineTo(boxX + colW * (idx + 1), boxY + 215);
         ctx.stroke();
       }
     });
   } else {
-    ctx.fillStyle = '#525E47';
-    ctx.font = '600 42px "Cormorant Garamond", Georgia, serif';
+    ctx.fillStyle = '#242830';
+    ctx.font = '600 40px "Cormorant Garamond", Georgia, serif';
     wrapText(
       ctx,
       countdownState ? countdownState.statusText : 'Hoje é o nosso grande encontro!',
       w / 2,
       boxY + 125,
       boxW - 80,
-      52
+      50
     );
   }
 
-  // Informações do evento
-  ctx.fillStyle = '#525E47';
-  ctx.font = '600 38px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText(EVENT_DATA.dateHighlight, w / 2, 885);
+  // Detalhes do Evento
+  ctx.fillStyle = '#5B6852';
+  ctx.font = '600 36px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText(EVENT_DATA.dateHighlight, w / 2, 875);
 
-  ctx.fillStyle = '#2B2D28';
-  ctx.font = '500 28px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('A partir das 11h30', w / 2, 938);
+  ctx.fillStyle = '#242830';
+  ctx.font = '500 26px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('A partir das 11h30', w / 2, 928);
 
-  ctx.fillStyle = '#2B2D28';
-  ctx.font = '600 32px "Cormorant Garamond", Georgia, serif';
+  // LOCAL: EXIBIR ESTRITAMENTE APENAS "Chácara Sthefani" (Regra Obrigatória nº 7)
+  ctx.fillStyle = '#242830';
+  ctx.font = '600 34px "Cormorant Garamond", Georgia, serif';
   ctx.fillText(EVENT_DATA.venueName, w / 2, 1005);
 
-  ctx.fillStyle = '#4D5148';
-  ctx.font = '400 24px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('Estrada Sete Voltas, Franco da Rocha - SP', w / 2, 1048);
-
-  // Versículo bíblico
-  ctx.strokeStyle = 'rgba(184, 159, 114, 0.45)';
-  ctx.lineWidth = 1.5;
+  // Versículo Bíblico na base do cartão
+  ctx.strokeStyle = 'rgba(140, 147, 158, 0.4)';
+  ctx.lineWidth = 1.2;
   ctx.beginPath();
-  ctx.moveTo(w / 2 - 120, 1108);
-  ctx.lineTo(w / 2 + 120, 1108);
+  ctx.moveTo(w / 2 - 140, 1075);
+  ctx.lineTo(w / 2 + 140, 1075);
   ctx.stroke();
 
-  ctx.fillStyle = '#4D5148';
-  ctx.font = 'italic 400 29px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText(`"${EVENT_DATA.scripture.text}"`, w / 2, 1168);
+  ctx.fillStyle = '#4A515D';
+  ctx.font = 'italic 400 27px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText(`"${EVENT_DATA.scripture.text}"`, w / 2, 1140);
 
-  ctx.fillStyle = '#525E47';
-  ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText(EVENT_DATA.scripture.reference.toUpperCase(), w / 2, 1212);
+  ctx.fillStyle = '#5B6852';
+  ctx.font = '600 19px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText(EVENT_DATA.scripture.reference.toUpperCase(), w / 2, 1184);
+
+  // Claves discretas na base
+  ctx.fillStyle = '#8C939E';
+  ctx.font = '400 32px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText('𝄞', 95, h - 90);
+  ctx.fillText('𝄢', w - 95, h - 90);
 }

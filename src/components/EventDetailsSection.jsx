@@ -1,17 +1,13 @@
-import { Calendar, Clock, Trees } from 'lucide-react';
+import { Calendar, Clock, MapPin } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
 import CalendarMenu from './CalendarMenu';
+import { ClefWatermark, StaffClefDivider } from './CcbVisuals';
 
 export default function EventDetailsSection() {
   const details = [
     { icon: Calendar, label: 'Data', value: EVENT_DATA.dateFormatted },
     { icon: Clock, label: 'Horário', value: EVENT_DATA.timeFormatted },
-    {
-      icon: Trees,
-      label: 'Local',
-      value: `${EVENT_DATA.venueName} — Franco da Rocha - SP.`,
-      fullWidth: true
-    }
+    { icon: MapPin, label: 'Local', value: EVENT_DATA.venueName }
   ];
 
   return (
@@ -22,17 +18,22 @@ export default function EventDetailsSection() {
           <h2 id="details-heading" className="section-title">
             NOSSO ENCONTRO
           </h2>
+          <StaffClefDivider />
         </div>
 
         <div className="details-card reveal">
-          <ul className="details-list">
+          <div className="card-corner card-corner--left" aria-hidden="true">
+            <ClefWatermark type="treble" />
+          </div>
+          <div className="card-corner card-corner--right" aria-hidden="true">
+            <ClefWatermark type="bass" />
+          </div>
+
+          <ul className="details-list details-list--three">
             {details.map((item) => {
               const Icon = item.icon;
               return (
-                <li
-                  key={item.label}
-                  className={`details-item${item.fullWidth ? ' details-item--full' : ''}`}
-                >
+                <li key={item.label} className="details-item">
                   <div className="details-icon-wrap" aria-hidden="true">
                     <Icon className="details-icon" />
                   </div>
