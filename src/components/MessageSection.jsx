@@ -1,5 +1,5 @@
 import { EVENT_DATA } from '../data/eventData';
-import { BrotherhoodSilhouette, StaffClefDivider } from './CcbVisuals';
+import { StaffClefDivider } from './CcbVisuals';
 
 export default function MessageSection() {
   return (
@@ -23,9 +23,6 @@ export default function MessageSection() {
             <p className="scripture-text">"{EVENT_DATA.scripture.text}"</p>
             <footer className="scripture-ref">{EVENT_DATA.scripture.reference}</footer>
           </blockquote>
-
-          {/* Silhueta minimalista de comunhão da irmandade */}
-          <BrotherhoodSilhouette />
         </div>
       </div>
     </section>
