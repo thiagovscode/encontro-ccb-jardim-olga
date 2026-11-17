@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Download, MessageCircle, Share2 } from 'lucide-react';
+import { Check, Copy, Download, MessageCircle, Share2 } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
 import { renderShareCardCanvas } from '../utils/shareCardCanvas';
 import { ClefWatermark, StaffClefDivider } from './CcbVisuals';
@@ -7,6 +7,7 @@ import { ClefWatermark, StaffClefDivider } from './CcbVisuals';
 export default function ShareWhatsAppSection({ countdown }) {
   const canvasRef = useRef(null);
   const [feedback, setFeedback] = useState('');
+  const [copied, setCopied] = useState(false);
 
   const { phase, days, hours, minutes } = countdown;
 
@@ -23,16 +24,16 @@ export default function ShareWhatsAppSection({ countdown }) {
   const currentUrl =
     typeof window !== 'undefined' ? window.location.href.split('#')[0] : '';
 
-  // Mensagem para o WhatsApp contendo somente "Chácara Sthefani" (Regra Obrigatória nº 7)
+  // Mensagem bem formatada e elegante para o WhatsApp
   const whatsappMessage = [
     `*${EVENT_DATA.title}*`,
     `"${EVENT_DATA.subtitle}"`,
     '',
     `Data: ${EVENT_DATA.dateFormatted}`,
     `Horário: ${EVENT_DATA.timeFormatted}`,
-    `Local: ${EVENT_DATA.venueName}`,
     '',
-    `Confira o convite e a contagem regressiva: ${currentUrl}`
+    `Acesse o convite e confira os detalhes:`,
+    currentUrl
   ].join('\n');
 
   const whatsappHref = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
@@ -52,6 +53,17 @@ export default function ShareWhatsAppSection({ countdown }) {
     setFeedback('Imagem do convite salva. Você já pode enviá-la aos irmãos pelo WhatsApp.');
   }
 
+  async function handleCopyText() {
+    try {
+      await navigator.clipboard.writeText(whatsappMessage);
+      setCopied(true);
+      setFeedback('Texto do convite copiado! Você já pode colar na conversa.');
+      setTimeout(() => setCopied(false), 3000);
+    } catch {
+      setFeedback('Não foi possível copiar automaticamente no navegador.');
+    }
+  }
+
   function handleShareImage() {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -67,7 +79,7 @@ export default function ShareWhatsAppSection({ countdown }) {
         try {
           await navigator.share({
             title: EVENT_DATA.shortTitle,
-            text: `${EVENT_DATA.subtitle} ${EVENT_DATA.dateFormatted} ${EVENT_DATA.timeFormatted} • ${EVENT_DATA.venueName}`,
+            text: whatsappMessage,
             files: [file]
           });
           setFeedback('Convite compartilhado com sucesso.');
@@ -91,7 +103,7 @@ export default function ShareWhatsAppSection({ countdown }) {
             Convite para WhatsApp
           </h2>
           <p className="section-caption">
-            Gere uma imagem atualizada com a contagem regressiva, as claves e os detalhes do encontro para enviar aos irmãos.
+            Gere uma imagem atualizada com a contagem regressiva, as claves e a fachada da igreja para enviar aos irmãos.
           </p>
           <StaffClefDivider />
         </div>
@@ -110,7 +122,7 @@ export default function ShareWhatsAppSection({ countdown }) {
               className="share-canvas"
               width={1080}
               height={1350}
-              aria-label="Prévia do cartão digital de convite com contador regressivo e elementos musicais CCB"
+              aria-label="Prévia do cartão digital de convite com contador regressivo e elementos CCB"
             />
           </div>
 
@@ -126,6 +138,15 @@ export default function ShareWhatsAppSection({ countdown }) {
                 <span>BAIXAR IMAGEM DO CONVITE</span>
               </button>
 
+              <button type="button" className="btn btn-outline" onClick={handleCopyText}>
+                {copied ? (
+                  <Check className="btn-icon" aria-hidden="true" />
+                ) : (
+                  <Copy className="btn-icon" aria-hidden="true" />
+                )}
+                <span>{copied ? 'MENSAGEM COPIADA!' : 'COPIAR TEXTO DO CONVITE'}</span>
+              </button>
+
               <a
                 href={whatsappHref}
                 className="btn btn-outline"
@@ -133,7 +154,7 @@ export default function ShareWhatsAppSection({ countdown }) {
                 rel="noopener noreferrer"
               >
                 <MessageCircle className="btn-icon" aria-hidden="true" />
-                <span>Enviar link pelo WhatsApp</span>
+                <span>Abrir conversa no WhatsApp</span>
               </a>
             </div>
 

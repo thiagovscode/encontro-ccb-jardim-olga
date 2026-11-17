@@ -20,7 +20,8 @@ export default function MessageSection() {
           </div>
 
           <blockquote className="scripture-box">
-            <p className="scripture-text">"{EVENT_DATA.scripture.text}"</p>
+            <span className="scripture-quote-mark" aria-hidden="true">“</span>
+            <p className="scripture-text">{EVENT_DATA.scripture.text}</p>
             <footer className="scripture-ref">{EVENT_DATA.scripture.reference}</footer>
           </blockquote>
         </div>

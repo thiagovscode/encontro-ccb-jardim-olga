@@ -6,6 +6,7 @@ import EventDetailsSection from '../components/EventDetailsSection';
 import LocationSection from '../components/LocationSection';
 import ShareWhatsAppSection from '../components/ShareWhatsAppSection';
 import Footer from '../components/Footer';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 import { getCountdownState } from '../utils/countdown';
 
 export default function HomePage() {
@@ -66,6 +67,7 @@ export default function HomePage() {
         <ShareWhatsAppSection countdown={countdown} />
       </main>
       <Footer />
+      <ScrollToTopButton />
     </>
   );
 }
