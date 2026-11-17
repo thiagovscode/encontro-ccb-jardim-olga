@@ -59,6 +59,52 @@ export function StaffClefDivider({ light = false }) {
   );
 }
 
+// Marca d'água das claves para cantos dos cards
+export function ClefWatermark({ type = 'treble' }) {
+  if (type === 'treble') {
+    return (
+      <svg className="ccb-clef-watermark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path
+          d="M25 38C21.5 38 19 35.5 19 32.5C19 28.8 22.8 26.5 26.5 27.8C29.5 28.8 30.8 32 28.8 34.8C27 37 23.8 37.2 22.2 35C19.8 31.8 21 26.2 25.2 21.5C28.5 17.8 30.5 13.8 30 9.5C29.8 6.5 27.8 4.2 25.8 4.2C23.8 4.2 22.2 7 22.6 11.2L27 38.8C27.3 41.5 25.8 43.5 23.5 43.5C21.5 43.5 20.2 42 20.8 40.2"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+
+  if (type === 'bass') {
+    return (
+      <svg className="ccb-clef-watermark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path
+          d="M15 16C15 12.2 18.2 10 22 10C26.8 10 30 13.8 30 19.2C30 26.5 24.2 33 15 37.5"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <circle cx="16.5" cy="17" r="2" fill="currentColor" />
+        <circle cx="34.5" cy="14" r="1.6" fill="currentColor" />
+        <circle cx="34.5" cy="21" r="1.6" fill="currentColor" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="ccb-clef-watermark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <line x1="16" y1="8" x2="16" y2="40" stroke="currentColor" strokeWidth="2.5" />
+      <line x1="20" y1="8" x2="20" y2="40" stroke="currentColor" strokeWidth="1" />
+      <path
+        d="M20 12C28 12 34 16 34 20C34 24 28 28 22 28C28 28 34 32 34 36C34 40 28 44 20 44"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 // 2. Silhueta Arquitetônica Exata da Fachada CCB (Sem Fundo / Transparente)
 // Fiel à imagem real enviada: frontão escalonado, 7 janelas ogivais, letreiro e portão
 export function CcbFacadeIllustration() {
