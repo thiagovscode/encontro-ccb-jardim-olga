@@ -19,44 +19,56 @@ export default function CountdownSection({ countdown }) {
           <StaffClefDivider />
         </div>
 
-        {/* Desenho arquitetônico da Igreja CCB integrado ao contador */}
-        <div className="countdown-illustration-wrap reveal">
-          <img
-            src={churchImg}
-            alt="Ilustração da fachada da Congregação Cristã no Brasil"
-            className="countdown-church-img"
-            loading="lazy"
-          />
-        </div>
+        {/* Master Card Unificado e Elegante */}
+        <div className="countdown-master-card reveal" aria-live="polite">
+          {/* Ilustração da Igreja CCB integrada com topo em arco clássico */}
+          <div className="countdown-facade-frame">
+            <img
+              src={churchImg}
+              alt="Fachada da Congregação Cristã no Brasil"
+              className="countdown-facade-img"
+              loading="lazy"
+            />
+            <div className="countdown-facade-fade" aria-hidden="true" />
+          </div>
 
-        <div className="countdown-card reveal" aria-live="polite">
-          {phase === 'upcoming' ? (
-            <div className="countdown-grid">
-              <div className="countdown-item">
-                <span className="countdown-number">{days}</span>
-                <span className="countdown-label">Dias</span>
+          <div className="countdown-body">
+            <p className="countdown-clock-eyebrow">Tempo Restante para o Encontro</p>
+
+            {phase === 'upcoming' ? (
+              <div className="countdown-dials-row">
+                <div className="countdown-dial">
+                  <span className="countdown-digit">{days}</span>
+                  <span className="countdown-tag">Dias</span>
+                </div>
+
+                <span className="countdown-colon" aria-hidden="true">:</span>
+
+                <div className="countdown-dial">
+                  <span className="countdown-digit">{hours}</span>
+                  <span className="countdown-tag">Horas</span>
+                </div>
+
+                <span className="countdown-colon" aria-hidden="true">:</span>
+
+                <div className="countdown-dial">
+                  <span className="countdown-digit">{minutes}</span>
+                  <span className="countdown-tag">Minutos</span>
+                </div>
+
+                <span className="countdown-colon" aria-hidden="true">:</span>
+
+                <div className="countdown-dial">
+                  <span className="countdown-digit">{seconds}</span>
+                  <span className="countdown-tag">Segundos</span>
+                </div>
               </div>
-              <div className="countdown-divider" aria-hidden="true" />
-              <div className="countdown-item">
-                <span className="countdown-number">{hours}</span>
-                <span className="countdown-label">Horas</span>
+            ) : (
+              <div className="countdown-status">
+                <p className="countdown-status-text">{statusText}</p>
               </div>
-              <div className="countdown-divider" aria-hidden="true" />
-              <div className="countdown-item">
-                <span className="countdown-number">{minutes}</span>
-                <span className="countdown-label">Minutos</span>
-              </div>
-              <div className="countdown-divider" aria-hidden="true" />
-              <div className="countdown-item">
-                <span className="countdown-number">{seconds}</span>
-                <span className="countdown-label">Segundos</span>
-              </div>
-            </div>
-          ) : (
-            <div className="countdown-status">
-              <p className="countdown-status-text">{statusText}</p>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>
