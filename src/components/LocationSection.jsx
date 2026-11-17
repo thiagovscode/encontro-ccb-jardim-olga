@@ -1,6 +1,6 @@
 import { ExternalLink, Navigation } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
-import { CcbFacadeIllustration, StaffClefDivider } from './CcbVisuals';
+import { CcbFacadeIllustration } from './CcbVisuals';
 
 export default function LocationSection() {
   return (
@@ -11,15 +11,15 @@ export default function LocationSection() {
           <h2 id="location-heading" className="section-title">
             ONDE VAMOS NOS ENCONTRAR?
           </h2>
-          <StaffClefDivider />
-          {/* Ilustração arquitetônica delicada inspirada na casa de oração CCB */}
+
+          {/* Desenho arquitetônico sem fundo fiel à Casa de Oração CCB */}
           <CcbFacadeIllustration />
         </div>
 
         <div className="location-card reveal">
           <div className="location-info">
             <h3 className="location-venue">{EVENT_DATA.venueName}</h3>
-            {/* Endereço completo exibido EXCLUSIVAMENTE nesta seção */}
+            {/* O endereço completo aparece exclusivamente nesta seção do mapa */}
             <p className="location-address">{EVENT_DATA.addressFull}</p>
           </div>
 

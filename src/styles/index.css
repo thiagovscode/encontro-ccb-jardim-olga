@@ -623,6 +623,24 @@ a {
   border-bottom: 1px solid var(--border-subtle);
 }
 
+/* Ilustração da Igreja CCB no Contador */
+.countdown-illustration-wrap {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto 28px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1.5px solid var(--ccb-gray-300);
+  box-shadow: 0 10px 30px rgba(34, 38, 46, 0.08);
+  background-color: var(--ccb-white);
+}
+
+.countdown-church-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .countdown-card {
   position: relative;
   background-color: var(--ccb-white);
@@ -1068,19 +1086,14 @@ a {
     padding: 46px 40px;
   }
 
-  .details-list--three {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  .details-list--two {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
   }
 
   .details-item {
     border-bottom: none;
     padding-bottom: 0;
-  }
-
-  .ccb-orchestra-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
   }
 
   .location-card {

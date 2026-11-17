@@ -1,13 +1,13 @@
-import { Calendar, Clock, MapPin } from 'lucide-react';
+import { Calendar, Clock } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
 import CalendarMenu from './CalendarMenu';
-import { ClefWatermark, StaffClefDivider } from './CcbVisuals';
+import { StaffClefDivider } from './CcbVisuals';
 
 export default function EventDetailsSection() {
+  // Local removido daqui: aparece exclusivamente na seção do mapa
   const details = [
     { icon: Calendar, label: 'Data', value: EVENT_DATA.dateFormatted },
-    { icon: Clock, label: 'Horário', value: EVENT_DATA.timeFormatted },
-    { icon: MapPin, label: 'Local', value: EVENT_DATA.venueName }
+    { icon: Clock, label: 'Horário', value: EVENT_DATA.timeFormatted }
   ];
 
   return (
@@ -22,14 +22,7 @@ export default function EventDetailsSection() {
         </div>
 
         <div className="details-card reveal">
-          <div className="card-corner card-corner--left" aria-hidden="true">
-            <ClefWatermark type="treble" />
-          </div>
-          <div className="card-corner card-corner--right" aria-hidden="true">
-            <ClefWatermark type="bass" />
-          </div>
-
-          <ul className="details-list details-list--three">
+          <ul className="details-list details-list--two">
             {details.map((item) => {
               const Icon = item.icon;
               return (

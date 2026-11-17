@@ -1,3 +1,4 @@
+import churchImg from '../assets/ccb-igreja.jpg';
 import { StaffClefDivider } from './CcbVisuals';
 
 export default function CountdownSection({ countdown }) {
@@ -21,7 +22,7 @@ export default function CountdownSection({ countdown }) {
         {/* Desenho arquitetônico da Igreja CCB integrado ao contador */}
         <div className="countdown-illustration-wrap reveal">
           <img
-            src="/images/ccb-igreja.jpg"
+            src={churchImg}
             alt="Ilustração da fachada da Congregação Cristã no Brasil"
             className="countdown-church-img"
             loading="lazy"
