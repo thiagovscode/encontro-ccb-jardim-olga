@@ -105,125 +105,158 @@ export function ClefWatermark({ type = 'treble' }) {
   );
 }
 
-// 2. Silhueta Arquitetônica Exata da Fachada CCB (Sem Fundo / Transparente)
-// Fiel à imagem real enviada: frontão escalonado, 7 janelas ogivais, letreiro e portão
+// 2. Silhueta Arquitetônica Vetorial Minimalista da Fachada CCB (Sem Fundo / Transparente)
+// Ilustração técnica clássica com frontão escalonado, 7 janelas ogivais, frisos e letreiro institucional
 export function CcbFacadeIllustration() {
   return (
     <div className="ccb-facade-wrap" aria-hidden="true">
       <svg
         className="ccb-facade-svg"
-        viewBox="0 0 500 280"
+        viewBox="0 0 640 340"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Parede frontal superior em cinza arquitetônico suave com recorte escalonado */}
+        <defs>
+          <linearGradient id="wallWash" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#FAF9F6" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#F2EFE9" stopOpacity="0.85" />
+          </linearGradient>
+          <linearGradient id="glassWash" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#4E5A4B" stopOpacity="0.14" />
+            <stop offset="100%" stopColor="#3A4638" stopOpacity="0.05" />
+          </linearGradient>
+        </defs>
+
+        {/* Linha arquitetônica da base e solo */}
+        <line x1="40" y1="318" x2="600" y2="318" stroke="#3A424E" strokeWidth="1.8" strokeLinecap="round" />
+        <line x1="60" y1="322" x2="580" y2="322" stroke="#C2A676" strokeWidth="0.8" strokeOpacity="0.5" strokeLinecap="round" />
+
+        {/* Parede da Fachada com Frontão Escalonado CCB */}
         <path
-          d="M70 200V85H82V65H132V50H172V40H212V32H288V40H328V50H368V65H418V85H430V200H70Z"
-          fill="#DFE4EC"
-          stroke="#4A515D"
-          strokeWidth="1.8"
+          d="M 80 318 V 104 L 125 104 V 86 L 175 86 V 68 L 230 68 V 52 L 320 34 L 410 52 V 68 L 465 68 V 86 L 515 86 V 104 L 560 104 V 318 Z"
+          fill="url(#wallWash)"
+          stroke="#3A424E"
+          strokeWidth="1.6"
           strokeLinejoin="round"
         />
 
-        {/* Moldura da platibanda escalonada superior (topo branco CCB) */}
+        {/* Moldura dupla da platibanda / beiral escalonado */}
         <path
-          d="M66 85H78V62H128V46H168V36H208V28H292V36H332V46H372V62H422V85H434"
-          stroke="#22262E"
-          strokeWidth="2.4"
-          strokeLinecap="round"
+          d="M 74 104 L 121 104 V 82 L 171 82 V 64 L 226 64 V 48 L 320 28 L 414 48 V 64 L 469 64 V 82 L 519 82 V 104 L 566 104"
+          stroke="#C2A676"
+          strokeWidth="1.2"
           strokeLinejoin="round"
+          strokeLinecap="round"
         />
         <path
-          d="M74 89H84V66H134V50H174V40H214V32H286V40H326V50H366V66H416V89H426"
-          stroke="#FFFFFF"
-          strokeWidth="1.4"
+          d="M 70 108 L 117 108 V 86 L 167 86 V 68 L 222 68 V 52 L 320 32 L 418 52 V 68 L 473 68 V 86 L 523 86 V 108 L 570 108"
+          stroke="#3A424E"
+          strokeWidth="1"
+          strokeLinejoin="round"
           strokeLinecap="round"
         />
 
-        {/* Frisos verticais em relevo branco sobre a fachada cinza */}
+        {/* Frisos verticais em relevo arquitetônico (traços finos clássicos) */}
+        <g stroke="#3A424E" strokeWidth="0.75" strokeOpacity="0.28">
+          <line x1="98" y1="104" x2="98" y2="200" />
+          <line x1="148" y1="86" x2="148" y2="200" />
+          <line x1="200" y1="68" x2="200" y2="200" />
+          <line x1="260" y1="52" x2="260" y2="200" />
+          <line x1="290" y1="42" x2="290" y2="200" />
+          <line x1="320" y1="36" x2="320" y2="200" strokeOpacity="0.4" />
+          <line x1="350" y1="42" x2="350" y2="200" />
+          <line x1="380" y1="52" x2="380" y2="200" />
+          <line x1="440" y1="68" x2="440" y2="200" />
+          <line x1="492" y1="86" x2="492" y2="200" />
+          <line x1="542" y1="104" x2="542" y2="200" />
+        </g>
+
+        {/* 7 Janelas Ogivais Características com Vitrais / Caixilharia */}
         {[
-          92, 108, 124, 144, 160, 178, 196, 214, 232, 250, 268, 286, 304, 322, 340, 356, 376, 392, 408
-        ].map((x) => (
-          <line
-            key={x}
-            x1={x}
-            y1={x < 132 || x > 368 ? 72 : x < 172 || x > 328 ? 58 : x < 212 || x > 288 ? 48 : 38}
-            x2={x}
-            y2={196}
-            stroke="#FFFFFF"
-            strokeWidth="1.6"
-            strokeOpacity="0.9"
-          />
-        ))}
-
-        {/* 7 Janelas Ogivais Características da CCB */}
-        {[96, 140, 184, 228, 272, 316, 360].map((wx, idx) => (
-          <g key={idx}>
-            {/* Vão da janela com arco ogival */}
+          { x: 100, y: 116 },
+          { x: 156, y: 116 },
+          { x: 214, y: 116 },
+          { x: 304, y: 114, isCenter: true },
+          { x: 394, y: 116 },
+          { x: 452, y: 116 },
+          { x: 508, y: 116 }
+        ].map((win, idx) => (
+          <g key={idx} transform={`translate(${win.x}, ${win.y})`}>
             <path
-              d={`M${wx} 190V136C${wx} 120 ${wx + 16} 110 ${wx + 16} 110C${wx + 16} 110 ${wx + 32} 120 ${wx + 32} 136V190H${wx}Z`}
-              fill="#2E3C44"
-              stroke="#FFFFFF"
-              strokeWidth="2"
+              d={win.isCenter ? "M 0 78 V 26 Q 0 5 16 0 Q 32 5 32 26 V 78 Z" : "M 0 76 V 26 Q 0 5 16 0 Q 32 5 32 26 V 76 Z"}
+              fill="url(#glassWash)"
+              stroke="#3A424E"
+              strokeWidth={win.isCenter ? "1.4" : "1.3"}
             />
-            {/* Divisória central vertical */}
-            <line x1={wx + 16} y1={113} x2={wx + 16} y2={190} stroke="#FFFFFF" strokeWidth="1.2" />
-            {/* Travessa horizontal */}
-            <line x1={wx} y1={155} x2={wx + 32} y2={155} stroke="#FFFFFF" strokeWidth="1" />
-            <line x1={wx} y1={175} x2={wx + 32} y2={175} stroke="#FFFFFF" strokeWidth="1" />
+            <line x1="16" y1="2" x2="16" y2={win.isCenter ? "78" : "76"} stroke="#3A424E" strokeWidth="0.8" />
+            <line x1="0" y1="32" x2="32" y2="32" stroke="#3A424E" strokeWidth="0.75" />
+            <line x1="0" y1={win.isCenter ? "55" : "54"} x2="32" y2={win.isCenter ? "55" : "54"} stroke="#3A424E" strokeWidth="0.75" />
+            <line x1="-3" y1={win.isCenter ? "78" : "76"} x2="35" y2={win.isCenter ? "78" : "76"} stroke="#3A424E" strokeWidth="1.2" strokeLinecap="round" />
           </g>
         ))}
 
-        {/* Faixa branca horizontal do letreiro institucional */}
-        <rect x="60" y="198" width="380" height="24" fill="#FFFFFF" stroke="#8C939E" strokeWidth="1.2" />
+        {/* Faixa Arquitetônica Horizontal / Lintel com o Letreiro Institucional */}
+        <rect x="74" y="202" width="492" height="26" fill="#FFFFFF" stroke="#3A424E" strokeWidth="1.3" />
+        <line x1="74" y1="205" x2="566" y2="205" stroke="#C2A676" strokeWidth="0.75" strokeOpacity="0.6" />
+        <line x1="74" y1="225" x2="566" y2="225" stroke="#C2A676" strokeWidth="0.75" strokeOpacity="0.6" />
+
         <text
-          x="250"
-          y="214"
+          x="320"
+          y="219"
           textAnchor="middle"
           fill="#22262E"
-          fontFamily="'Plus Jakarta Sans', sans-serif"
-          fontSize="11.5"
+          fontFamily="'Plus Jakarta Sans', -apple-system, sans-serif"
+          fontSize="10.5"
           fontWeight="700"
-          letterSpacing="0.16em"
+          letterSpacing="0.22em"
         >
           CONGREGAÇÃO CRISTÃ NO BRASIL
         </text>
 
-        {/* Nível inferior: pilares, cobogós e portão frontal */}
-        {/* Pilares laterais e muro */}
-        <rect x="36" y="140" width="28" height="135" fill="#F4F6F9" stroke="#8C939E" strokeWidth="1.2" />
-        <rect x="436" y="140" width="28" height="135" fill="#F4F6F9" stroke="#8C939E" strokeWidth="1.2" />
+        {/* Térreo: Pilares, Cobogós e Portão / Entrada Minimalista */}
+        <g fill="#F2EFE9" stroke="#3A424E" strokeWidth="0.7" strokeOpacity="0.6">
+          <rect x="100" y="234" width="28" height="14" />
+          <rect x="136" y="234" width="28" height="14" />
+          <rect x="172" y="234" width="28" height="14" />
+          <rect x="440" y="234" width="28" height="14" />
+          <rect x="476" y="234" width="28" height="14" />
+          <rect x="512" y="234" width="28" height="14" />
+        </g>
 
-        {/* Parede recuada inferior com cobogós/grades de ventilação */}
-        <rect x="64" y="222" width="372" height="53" fill="#EEF1F5" />
-        {[72, 100, 128, 156, 320, 348, 376, 404].map((gx) => (
-          <rect key={gx} x={gx} y={226} width="22" height="14" fill="#D5DAE2" stroke="#8C939E" strokeWidth="0.8" />
-        ))}
+        {/* Pilares laterais do portão */}
+        <rect x="80" y="228" width="16" height="90" fill="#FFFFFF" stroke="#3A424E" strokeWidth="1.2" />
+        <rect x="544" y="228" width="16" height="90" fill="#FFFFFF" stroke="#3A424E" strokeWidth="1.2" />
+        <rect x="250" y="228" width="12" height="90" fill="#FFFFFF" stroke="#3A424E" strokeWidth="1.1" />
+        <rect x="378" y="228" width="12" height="90" fill="#FFFFFF" stroke="#3A424E" strokeWidth="1.1" />
 
-        {/* Gradil e portão frontal branco */}
-        {/* Viga horizontal superior do portão */}
-        <line x1="60" y1="228" x2="440" y2="228" stroke="#4A515D" strokeWidth="2.2" />
-        <line x1="60" y1="272" x2="440" y2="272" stroke="#4A515D" strokeWidth="2.2" />
+        {/* Viga horizontal do portão frontal */}
+        <line x1="96" y1="254" x2="544" y2="254" stroke="#3A424E" strokeWidth="1.4" />
+        <line x1="96" y1="312" x2="544" y2="312" stroke="#3A424E" strokeWidth="1.4" />
 
-        {/* Barras verticais do portão */}
-        {Array.from({ length: 48 }).map((_, i) => {
-          const px = 64 + i * 7.8;
-          return (
-            <line
-              key={i}
-              x1={px}
-              y1={228}
-              x2={px}
-              y2={272}
-              stroke="#FFFFFF"
-              strokeWidth="1.4"
-              strokeLinecap="round"
-            />
-          );
-        })}
+        {/* Gradil vertical minimalista do portão */}
+        <g stroke="#3A424E" strokeWidth="0.85" strokeOpacity="0.55">
+          {/* Bloco Esquerdo */}
+          {[108, 120, 132, 144, 156, 168, 180, 192, 204, 216, 228, 240].map((x) => (
+            <line key={x} x1={x} y1="254" x2={x} y2="312" />
+          ))}
 
-        {/* Linha de base do solo */}
-        <line x1="20" y1="275" x2="480" y2="275" stroke="#4A515D" strokeWidth="2" strokeLinecap="round" />
+          {/* Entrada Central com Porta Dupla Arquitetônica */}
+          <line x1="262" y1="254" x2="262" y2="312" strokeOpacity="0.8" />
+          <line x1="274" y1="254" x2="274" y2="312" />
+          <line x1="286" y1="254" x2="286" y2="312" />
+          <line x1="298" y1="254" x2="298" y2="312" />
+          <line x1="310" y1="254" x2="310" y2="312" />
+          <line x1="320" y1="230" x2="320" y2="312" strokeWidth="1.2" strokeOpacity="0.9" />
+          <line x1="330" y1="254" x2="330" y2="312" />
+          <line x1="342" y1="254" x2="342" y2="312" />
+          <line x1="354" y1="254" x2="354" y2="312" />
+          <line x1="366" y1="254" x2="366" y2="312" />
+
+          {/* Bloco Direito */}
+          {[400, 412, 424, 436, 448, 460, 472, 484, 496, 508, 520, 532].map((x) => (
+            <line key={x} x1={x} y1="254" x2={x} y2="312" />
+          ))}
+        </g>
       </svg>
     </div>
   );

@@ -1,11 +1,11 @@
-import churchImg from '../assets/ccb-igreja.jpg';
+import churchSvg from '../assets/ccb-facade-minimal.svg';
 import { EVENT_DATA } from '../data/eventData';
 
 let cachedChurchImg = null;
 let isImgLoading = false;
 
 function loadChurchImage(callback) {
-  if (cachedChurchImg && cachedChurchImg.complete) {
+  if (cachedChurchImg && cachedChurchImg.complete && cachedChurchImg.naturalWidth > 0) {
     callback(cachedChurchImg);
     return;
   }
@@ -15,7 +15,7 @@ function loadChurchImage(callback) {
 
   const img = new Image();
   img.crossOrigin = 'anonymous';
-  img.src = churchImg;
+  img.src = churchSvg;
   img.onload = () => {
     cachedChurchImg = img;
     isImgLoading = false;
@@ -56,27 +56,27 @@ export function renderShareCardCanvas(canvas, countdownState) {
   const w = canvas.width;
   const h = canvas.height;
 
-  // Fundo marfim suave com textura luminosa
-  ctx.fillStyle = '#FAF9F6';
+  // 1. Fundo Marfim Suave com Iluminação Central
+  ctx.fillStyle = '#FAF8F4';
   ctx.fillRect(0, 0, w, h);
 
-  const bgGrad = ctx.createRadialGradient(w / 2, h * 0.45, 80, w / 2, h * 0.5, 850);
+  const bgGrad = ctx.createRadialGradient(w / 2, h * 0.45, 100, w / 2, h * 0.5, 800);
   bgGrad.addColorStop(0, '#FFFFFF');
-  bgGrad.addColorStop(0.7, '#F7F8FA');
-  bgGrad.addColorStop(1, '#EEF0F3');
+  bgGrad.addColorStop(0.6, '#FAF8F4');
+  bgGrad.addColorStop(1, '#F2EEE6');
   ctx.fillStyle = bgGrad;
   ctx.fillRect(0, 0, w, h);
 
-  // Moldura dupla clássica e discreta
+  // 2. Moldura Dupla Clássica Minimalista
   ctx.strokeStyle = '#8C939E';
-  ctx.lineWidth = 2.5;
+  ctx.lineWidth = 1.5;
   ctx.strokeRect(36, 36, w - 72, h - 72);
 
   ctx.strokeStyle = 'rgba(194, 166, 118, 0.45)';
-  ctx.lineWidth = 1.2;
+  ctx.lineWidth = 1;
   ctx.strokeRect(48, 48, w - 96, h - 96);
 
-  // Cantoneiras arquitetônicas nos 4 cantos
+  // Cantoneiras refinadas nos 4 cantos
   const corners = [
     { x: 36, y: 36, dx: 1, dy: 1 },
     { x: w - 36, y: 36, dx: -1, dy: 1 },
@@ -84,185 +84,172 @@ export function renderShareCardCanvas(canvas, countdownState) {
     { x: w - 36, y: h - 36, dx: -1, dy: -1 }
   ];
   ctx.strokeStyle = '#4A515D';
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 1.5;
   corners.forEach((c) => {
     ctx.beginPath();
-    ctx.moveTo(c.x, c.y + c.dy * 26);
+    ctx.moveTo(c.x, c.y + c.dy * 24);
     ctx.lineTo(c.x, c.y);
-    ctx.lineTo(c.x + c.dx * 26, c.y);
+    ctx.lineTo(c.x + c.dx * 24, c.y);
     ctx.stroke();
   });
 
-  // Claves decorativas nos cantos
-  ctx.fillStyle = '#4A515D';
-  ctx.font = '400 40px "Cormorant Garamond", Georgia, serif';
+  // Claves decorativas sutis nos cantos superiores
+  ctx.fillStyle = 'rgba(74, 81, 93, 0.55)';
+  ctx.font = '400 36px "Cormorant Garamond", Georgia, serif';
   ctx.textAlign = 'center';
-  ctx.fillText('𝄞', 80, 96);
-  ctx.fillText('𝄢', w - 80, 96);
+  ctx.fillText('𝄞', 82, 92);
+  ctx.fillText('𝄢', w - 82, 92);
 
-  // 1. Cabeçalho do Convite
+  // 3. Estrela de 4 pontas no topo
+  ctx.fillStyle = '#C2A676';
+  ctx.font = '400 22px "Cormorant Garamond", serif';
+  ctx.fillText('✦', w / 2, 90);
+
+  // 4. Cabeçalho Editorial
   ctx.fillStyle = '#5B6852';
-  ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText('CONVITE ESPECIAL', w / 2, 100);
+  ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('C O N V I T E   E S P E C I A L', w / 2, 126);
 
   ctx.fillStyle = '#22262E';
-  ctx.font = '600 54px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText('ENCONTRO CCB JARDIM OLGA', w / 2, 165);
+  ctx.font = '600 52px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText('ENCONTRO CCB JARDIM OLGA', w / 2, 185);
 
-  ctx.fillStyle = '#4A515D';
-  ctx.font = 'italic 400 27px "Cormorant Garamond", Georgia, serif';
-  wrapText(ctx, `"${EVENT_DATA.subtitle}"`, w / 2, 215, w - 220, 36);
+  ctx.fillStyle = '#555E6B';
+  ctx.font = 'italic 400 24px "Cormorant Garamond", Georgia, serif';
+  wrapText(ctx, `"${EVENT_DATA.subtitle}"`, w / 2, 226, w - 240, 32);
 
-  // 2. Mesclagem da Ilustração da Igreja CCB com o Convite
-  const drawBlendedChurch = (img) => {
-    const imgW = 860;
-    const imgH = 360;
+  // 5. Ilustração Arquitetônica Vetorial Minimalista da Fachada CCB
+  const drawChurchIllustration = (img) => {
+    const imgW = 540;
+    const imgH = 286;
     const imgX = (w - imgW) / 2;
-    const imgY = 265;
-
-    ctx.save();
-    // Arco suave no topo da ilustração
-    ctx.beginPath();
-    const r = 10;
-    ctx.moveTo(imgX + r, imgY);
-    ctx.lineTo(imgX + imgW - r, imgY);
-    ctx.quadraticCurveTo(imgX + imgW, imgY, imgX + imgW, imgY + r);
-    ctx.lineTo(imgX + imgW, imgY + imgH);
-    ctx.lineTo(imgX, imgY + imgH);
-    ctx.lineTo(imgX, imgY + r);
-    ctx.quadraticCurveTo(imgX, imgY, imgX + r, imgY);
-    ctx.closePath();
-    ctx.clip();
+    const imgY = 258;
 
     ctx.drawImage(img, imgX, imgY, imgW, imgH);
-
-    // Efeito de mesclagem suave na base (fadeout gradiente) para fundir perfeitamente com o convite
-    const fadeGrad = ctx.createLinearGradient(0, imgY + imgH - 120, 0, imgY + imgH);
-    fadeGrad.addColorStop(0, 'rgba(250, 249, 246, 0)');
-    fadeGrad.addColorStop(0.55, 'rgba(250, 249, 246, 0.65)');
-    fadeGrad.addColorStop(1, '#FAF9F6');
-    ctx.fillStyle = fadeGrad;
-    ctx.fillRect(imgX - 10, imgY + imgH - 130, imgW + 20, 140);
-
-    ctx.restore();
-
-    // Friso sutil e moldura ao redor da imagem mesclada
-    ctx.strokeStyle = 'rgba(140, 147, 158, 0.45)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(imgX, imgY, imgW, imgH);
   };
 
-  if (cachedChurchImg && cachedChurchImg.complete) {
-    drawBlendedChurch(cachedChurchImg);
+  if (cachedChurchImg && cachedChurchImg.complete && cachedChurchImg.naturalWidth > 0) {
+    drawChurchIllustration(cachedChurchImg);
   } else {
     loadChurchImage(() => {
       renderShareCardCanvas(canvas, countdownState);
     });
   }
 
-  // Pauta musical sutil no divisor
-  const staffY = 645;
-  ctx.strokeStyle = 'rgba(140, 147, 158, 0.35)';
-  ctx.lineWidth = 0.9;
-  for (let i = 0; i < 5; i++) {
-    ctx.beginPath();
-    ctx.moveTo(w / 2 - 200, staffY + i * 8);
-    ctx.lineTo(w / 2 + 200, staffY + i * 8);
-    ctx.stroke();
-  }
-  ctx.fillStyle = '#5B6852';
-  ctx.font = '400 26px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText('𝄞', w / 2 - 165, staffY + 28);
-  ctx.fillText('𝄢', w / 2 + 165, staffY + 26);
+  // 6. Contagem Regressiva no Estilo Minimalista (Caixinhas Clássicas)
+  const startCountY = 578;
 
-  // 3. Bloco Elegante da Contagem Regressiva
-  const boxX = 120;
-  const boxY = 705;
-  const boxW = w - 240;
-  const boxH = 220;
+  // Estrela e título da contagem
+  ctx.fillStyle = '#C2A676';
+  ctx.font = '400 16px "Cormorant Garamond", serif';
+  ctx.fillText('✦', w / 2, startCountY);
 
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fillRect(boxX, boxY, boxW, boxH);
-  ctx.strokeStyle = '#8C939E';
-  ctx.lineWidth = 1.4;
-  ctx.strokeRect(boxX, boxY, boxW, boxH);
-
-  // Friso interno dourado suave
-  ctx.strokeStyle = 'rgba(194, 166, 118, 0.35)';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(boxX + 5, boxY + 5, boxW - 10, boxH - 10);
+  ctx.fillStyle = '#8C8275';
+  ctx.font = '500 15px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText('C O N T A G E M   R E G R E S S I V A', w / 2, startCountY + 28);
 
   if (countdownState && countdownState.phase === 'upcoming') {
-    ctx.fillStyle = '#7C8B72';
-    ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('CONTAGEM REGRESSIVA PARA O ENCONTRO', w / 2, boxY + 40);
-
     const items = [
-      { val: countdownState.days, label: 'DIAS' },
-      { val: countdownState.hours, label: 'HORAS' },
-      { val: countdownState.minutes, label: 'MINUTOS' }
+      { num: countdownState.days, label: 'DIAS' },
+      { num: countdownState.hours, label: 'HORAS' },
+      { num: countdownState.minutes, label: 'MINUTOS' },
+      { num: countdownState.seconds, label: 'SEGUNDOS' }
     ];
 
-    const colW = boxW / 3;
+    const boxW = 120;
+    const boxH = 128;
+    const gap = 16;
+    const colonW = 18;
+    const totalW = 4 * boxW + 3 * (gap * 2 + colonW);
+    const startX = (w - totalW) / 2;
+    const boxY = startCountY + 46;
+
     items.forEach((item, idx) => {
-      const cx = boxX + colW * idx + colW / 2;
+      const curX = startX + idx * (boxW + gap * 2 + colonW);
+
+      // Caixa com borda hairline champagne
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(curX, boxY, boxW, boxH);
+      ctx.strokeStyle = 'rgba(194, 166, 118, 0.55)';
+      ctx.lineWidth = 1.2;
+      ctx.strokeRect(curX, boxY, boxW, boxH);
+
+      // Dígito grande slender
       ctx.fillStyle = '#22262E';
-      ctx.font = '600 76px "Cormorant Garamond", Georgia, serif';
-      ctx.fillText(item.val, cx, boxY + 128);
+      ctx.font = '400 58px "Cormorant Garamond", Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(item.num, curX + boxW / 2, boxY + 84);
 
-      ctx.fillStyle = '#8C939E';
-      ctx.font = '600 14px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(item.label, cx, boxY + 172);
+      // Label abaixo da caixa
+      ctx.fillStyle = '#8C857B';
+      ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(item.label, curX + boxW / 2, boxY + boxH + 26);
 
+      // Dois pontos entre as caixas
       if (idx < items.length - 1) {
-        ctx.strokeStyle = 'rgba(140, 147, 158, 0.35)';
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.moveTo(boxX + colW * (idx + 1), boxY + 65);
-        ctx.lineTo(boxX + colW * (idx + 1), boxY + 185);
-        ctx.stroke();
+        ctx.fillStyle = '#C2A676';
+        ctx.font = '400 28px "Cormorant Garamond", Georgia, serif';
+        ctx.fillText(':', curX + boxW + gap + colonW / 2, boxY + boxH / 2 + 8);
       }
     });
   } else {
     ctx.fillStyle = '#22262E';
-    ctx.font = '600 36px "Cormorant Garamond", Georgia, serif';
-    wrapText(
-      ctx,
+    ctx.font = '600 32px "Cormorant Garamond", Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(
       countdownState ? countdownState.statusText : 'Hoje é o nosso grande encontro!',
       w / 2,
-      boxY + 105,
-      boxW - 80,
-      44
+      startCountY + 95
     );
   }
 
-  // 4. Data, Horário e LOCAL (exclusivo nessa imagem de convite)
+  // 7. Data e Horário
+  const infoY = 820;
   ctx.fillStyle = '#5B6852';
   ctx.font = '600 34px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText(EVENT_DATA.dateHighlight, w / 2, 975);
+  ctx.textAlign = 'center';
+  ctx.fillText(EVENT_DATA.dateHighlight, w / 2, infoY);
 
   ctx.fillStyle = '#4A515D';
-  ctx.font = '500 23px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText(EVENT_DATA.timeFormatted, w / 2, 1018);
+  ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText(EVENT_DATA.timeFormatted, w / 2, infoY + 40);
 
-  // LOCAL: Chácara Sthefani em destaque elegante
-  ctx.fillStyle = '#22262E';
-  ctx.font = '600 36px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText(`Local: ${EVENT_DATA.venueName}`, w / 2, 1080);
-
-  // 5. Versículo Bíblico na base do cartão
-  ctx.strokeStyle = 'rgba(140, 147, 158, 0.4)';
-  ctx.lineWidth = 1.2;
+  // 8. LOCAL: Chácara Sthefani em Destaque
+  // Regra obrigatória: Somente o nome do local, sem exibir o endereço completo nesta imagem
+  const localY = infoY + 115;
+  ctx.strokeStyle = 'rgba(194, 166, 118, 0.4)';
+  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(w / 2 - 130, 1140);
-  ctx.lineTo(w / 2 + 130, 1140);
+  ctx.moveTo(w / 2 - 140, localY - 24);
+  ctx.lineTo(w / 2 + 140, localY - 24);
   ctx.stroke();
+
+  ctx.fillStyle = '#22262E';
+  ctx.font = '600 38px "Cormorant Garamond", Georgia, serif';
+  ctx.fillText(`Local: ${EVENT_DATA.venueName}`, w / 2, localY + 16);
+
+  ctx.beginPath();
+  ctx.moveTo(w / 2 - 140, localY + 38);
+  ctx.lineTo(w / 2 + 140, localY + 38);
+  ctx.stroke();
+
+  // 9. Versículo Bíblico no Rodapé
+  const verseY = 1110;
+  // Pauta musical sutil como divisor
+  ctx.strokeStyle = 'rgba(140, 147, 158, 0.3)';
+  ctx.lineWidth = 0.8;
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 160, verseY - 30 + i * 6);
+    ctx.lineTo(w / 2 + 160, verseY - 30 + i * 6);
+    ctx.stroke();
+  }
 
   ctx.fillStyle = '#4A515D';
   ctx.font = 'italic 400 26px "Cormorant Garamond", Georgia, serif';
-  ctx.fillText(`"${EVENT_DATA.scripture.text}"`, w / 2, 1205);
+  wrapText(ctx, `"${EVENT_DATA.scripture.text}"`, w / 2, verseY + 28, w - 240, 36);
 
   ctx.fillStyle = '#5B6852';
-  ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
-  ctx.fillText(EVENT_DATA.scripture.reference.toUpperCase(), w / 2, 1248);
+  ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+  ctx.fillText(EVENT_DATA.scripture.reference.toUpperCase(), w / 2, verseY + 115);
 }
