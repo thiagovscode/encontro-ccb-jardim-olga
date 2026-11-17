@@ -95,9 +95,9 @@ export default function ShareWhatsAppSection({ countdown }) {
             <canvas
               ref={canvasRef}
               className="share-canvas"
-              width={1080}
-              height={1350}
-              aria-label="Prévia do cartão digital de convite mesclado com a igreja CCB"
+              width={1152}
+              height={1536}
+              aria-label="Prévia do cartão digital oficial do Encontro CCB Jardim Olga"
             />
           </div>
 

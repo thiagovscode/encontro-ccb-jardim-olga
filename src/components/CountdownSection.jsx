@@ -4,59 +4,42 @@ export default function CountdownSection({ countdown }) {
   return (
     <section id="contador" className="section section-countdown" aria-labelledby="countdown-heading">
       <div className="container">
-        <div className="countdown-minimal-wrap reveal">
-          {/* Estrela de 4 pontas sutil e elegante */}
-          <div className="countdown-minimal-star" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M12 2L13.8 9.2L21 11L13.8 12.8L12 20L10.2 12.8L3 11L10.2 9.2L12 2Z"
-                fill="#C2A676"
-              />
-            </svg>
+        <div className="countdown-master-container reveal">
+          {/* Badge em verde-oliva com dourado */}
+          <div className="countdown-pill-badge" id="countdown-heading">
+            <span>CONTAGEM REGRESSIVA</span>
           </div>
 
-          <h2 id="countdown-heading" className="countdown-minimal-heading">
-            C O N T A G E M &nbsp; R E G R E S S I V A
-          </h2>
-
           {phase === 'upcoming' ? (
-            <div className="countdown-minimal-row" aria-live="polite">
-              {/* DIAS */}
-              <div className="countdown-box-col">
-                <div className="countdown-box">
-                  <span className="countdown-box-num">{days}</span>
-                </div>
-                <span className="countdown-box-label">DIAS</span>
+            <div className="countdown-master-panel" aria-live="polite">
+              {/* Coluna DIAS */}
+              <div className="countdown-master-col">
+                <span className="countdown-master-num">{String(days).padStart(2, '0')}</span>
+                <span className="countdown-master-label">DIAS</span>
               </div>
 
-              <span className="countdown-box-sep" aria-hidden="true">:</span>
+              <div className="countdown-master-divider" aria-hidden="true" />
 
-              {/* HORAS */}
-              <div className="countdown-box-col">
-                <div className="countdown-box">
-                  <span className="countdown-box-num">{hours}</span>
-                </div>
-                <span className="countdown-box-label">HORAS</span>
+              {/* Coluna HORAS */}
+              <div className="countdown-master-col">
+                <span className="countdown-master-num">{String(hours).padStart(2, '0')}</span>
+                <span className="countdown-master-label">HORAS</span>
               </div>
 
-              <span className="countdown-box-sep" aria-hidden="true">:</span>
+              <div className="countdown-master-divider" aria-hidden="true" />
 
-              {/* MINUTOS */}
-              <div className="countdown-box-col">
-                <div className="countdown-box">
-                  <span className="countdown-box-num">{minutes}</span>
-                </div>
-                <span className="countdown-box-label">MINUTOS</span>
+              {/* Coluna MINUTOS */}
+              <div className="countdown-master-col">
+                <span className="countdown-master-num">{String(minutes).padStart(2, '0')}</span>
+                <span className="countdown-master-label">MINUTOS</span>
               </div>
 
-              <span className="countdown-box-sep" aria-hidden="true">:</span>
+              <div className="countdown-master-divider" aria-hidden="true" />
 
-              {/* SEGUNDOS */}
-              <div className="countdown-box-col">
-                <div className="countdown-box">
-                  <span className="countdown-box-num">{seconds}</span>
-                </div>
-                <span className="countdown-box-label">SEGUNDOS</span>
+              {/* Coluna SEGUNDOS */}
+              <div className="countdown-master-col">
+                <span className="countdown-master-num">{String(seconds).padStart(2, '0')}</span>
+                <span className="countdown-master-label">SEGUNDOS</span>
               </div>
             </div>
           ) : (
@@ -65,12 +48,19 @@ export default function CountdownSection({ countdown }) {
             </div>
           )}
 
-          <p className="countdown-minimal-date">
-            21 de novembro de 2026, às 11h30
-          </p>
+          {/* Versículo de Salmos 133:1 emoldurado */}
+          <div className="countdown-scripture-wrap">
+            <p className="countdown-scripture-quote">
+              “Oh! quão bom e quão suave é que os irmãos vivam em união.”
+            </p>
+            <div className="countdown-scripture-rule">
+              <span className="rule-line" />
+              <span className="rule-text">SALMOS 133:1</span>
+              <span className="rule-line" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
-

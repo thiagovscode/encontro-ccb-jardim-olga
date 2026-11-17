@@ -514,223 +514,311 @@ a {
   z-index: 2;
 }
 
-/* Moldura Arquitetônica Clássica com relevo cinza e dourado suave */
-.invitation-frame {
+/* Moldura Oficial do Convite com Filetes Dourados e Grafite */
+.official-invite-card {
   position: relative;
-  background-color: rgba(255, 255, 255, 0.94);
-  border: 1.5px solid var(--ccb-gray-300);
-  padding: 10px;
+  background-color: #FAF9F6;
+  border: 1.5px solid #8C939E;
+  outline: 1px solid #C8AD7F;
+  outline-offset: -7px;
   border-radius: var(--radius-md);
-  box-shadow: 0 16px 40px rgba(34, 38, 46, 0.08);
-  max-width: 680px;
+  padding: 44px 24px 38px;
+  box-shadow: 0 16px 44px rgba(34, 38, 46, 0.08);
+  max-width: 660px;
   margin: 0 auto;
-}
-
-.frame-corner {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  color: var(--ccb-gray-500);
-  opacity: 0.38;
-}
-
-.frame-corner--tl { top: 16px; left: 16px; }
-.frame-corner--tr { top: 16px; right: 16px; }
-.frame-corner--bl { bottom: 16px; left: 16px; }
-.frame-corner--br { bottom: 16px; right: 16px; }
-
-.invitation-inner {
-  border: 1px solid var(--ccb-champagne-soft);
-  border-radius: calc(var(--radius-md) - 4px);
-  padding: 38px 22px;
   text-align: center;
-  background-color: #FFFFFF;
 }
 
-.hero-header-badge {
+.invite-top-filigree {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.filigree-svg {
+  width: 140px;
+  height: auto;
+}
+
+.invite-eyebrow-rule {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.badge-line {
-  width: 28px;
+.eyebrow-line {
+  width: 44px;
   height: 1px;
-  background-color: var(--ccb-champagne);
+  background-color: #C8AD7F;
 }
 
-.hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.15rem, 6.2vw, 3.45rem);
+.eyebrow-text {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
   font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: 0.04em;
-  color: var(--ccb-gray-900);
-  margin-bottom: 14px;
+  letter-spacing: 0.24em;
+  color: #4A5846;
+  text-transform: uppercase;
 }
 
-.hero-subtitle {
+.invite-main-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.3rem, 6.8vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #1F242B;
+  margin-bottom: 6px;
+  line-height: 1.05;
+}
+
+.invite-ribbon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px auto 14px;
+}
+
+.ribbon-flourish {
+  font-size: 1.3rem;
+  color: #C8AD7F;
+  user-select: none;
+}
+
+.invite-ribbon {
+  background-color: #4A5846;
+  border: 1.5px solid #C8AD7F;
+  padding: 6px 28px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(74, 88, 70, 0.25);
+}
+
+.invite-ribbon span {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 3.4vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #FFFFFF;
+}
+
+.invite-subtitle {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1.15rem, 3.2vw, 1.45rem);
-  color: var(--ccb-gray-700);
-  max-width: 520px;
-  margin: 0 auto;
-  line-height: 1.5;
+  font-size: clamp(1.05rem, 2.8vw, 1.25rem);
+  color: #4A5260;
+  margin: 0 auto 22px;
+  max-width: 480px;
+  line-height: 1.45;
 }
 
-.hero-details {
-  margin-bottom: 30px;
+.invite-date-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #C8AD7F;
+  border-radius: 8px;
+  padding: 12px 28px;
+  margin: 0 auto 12px;
+  box-shadow: 0 4px 14px rgba(200, 173, 127, 0.12);
 }
 
-.hero-date {
+.invite-box-icon {
+  width: 20px;
+  height: 20px;
+  color: #C8AD7F;
+  flex-shrink: 0;
+}
+
+.invite-date-text {
   font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 3.8vw, 1.85rem);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--ccb-olive);
-  margin-bottom: 6px;
+  font-size: clamp(1.15rem, 3.2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #1F242B;
 }
 
-.hero-time {
-  font-size: 1rem;
-  color: var(--ccb-gray-700);
-  margin-bottom: 6px;
+.invite-time-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 26px;
 }
 
-/* Local estritamente Chácara Sthefani */
-.hero-venue {
+.time-line-rule {
+  width: 32px;
+  height: 1px;
+  background-color: #C8AD7F;
+}
+
+.time-icon {
+  width: 17px;
+  height: 17px;
+  color: #C8AD7F;
+}
+
+.time-text {
   font-family: var(--font-serif);
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  color: var(--ccb-gray-900);
-  letter-spacing: 0.02em;
+  color: #1F242B;
 }
 
-.hero-cta {
+.invite-cta-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.invite-cta {
   width: 100%;
   max-width: 360px;
 }
 
+/* Caixa de Localização Estilo Convite Oficial */
+.invite-venue-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #C8AD7F;
+  border-radius: 8px;
+  padding: 12px 26px;
+  margin: 0 auto 18px;
+  box-shadow: 0 4px 14px rgba(200, 173, 127, 0.12);
+}
+
+.venue-box-icon {
+  width: 22px;
+  height: 22px;
+  color: #4A5846;
+  flex-shrink: 0;
+}
+
+.venue-box-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 3.4vw, 1.55rem);
+  font-weight: 700;
+  color: #1F242B;
+  letter-spacing: 0.02em;
+}
+
 /* ==========================================================================
-   SEÇÃO 2: CONTADOR REGRESSIVO MINIMALISTA (Estilo Editorial Clássico)
+   SEÇÃO 2: CONTADOR REGRESSIVO OFICIAL (Com Painel e Versículo)
    ========================================================================== */
 .section-countdown {
   background-color: #FAF8F4;
-  border-top: 1px solid rgba(194, 166, 118, 0.25);
-  border-bottom: 1px solid rgba(194, 166, 118, 0.25);
-  padding: clamp(60px, 8vw, 95px) 20px;
+  border-top: 1px solid rgba(200, 173, 127, 0.3);
+  border-bottom: 1px solid rgba(200, 173, 127, 0.3);
+  padding: clamp(54px, 7vw, 84px) 20px;
 }
 
-.countdown-minimal-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.countdown-master-container {
+  max-width: 580px;
+  margin: 0 auto;
   text-align: center;
-  max-width: 680px;
-  margin: 0 auto;
 }
 
-.countdown-minimal-star {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 22px;
-  color: var(--ccb-champagne);
-  animation: pulseStar 4s ease-in-out infinite;
+.countdown-pill-badge {
+  display: inline-block;
+  background-color: #4A5846;
+  border: 1.2px solid #C8AD7F;
+  padding: 4px 20px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(74, 88, 70, 0.2);
 }
 
-@keyframes pulseStar {
-  0%, 100% {
-    opacity: 0.75;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-}
-
-.countdown-minimal-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(0.85rem, 2.2vw, 1.05rem);
-  font-weight: 500;
-  letter-spacing: 0.38em;
+.countdown-pill-badge span {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #8C8275;
-  margin-bottom: 34px;
+  color: #FFFFFF;
 }
 
-.countdown-minimal-row {
+.countdown-master-panel {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: clamp(8px, 2.4vw, 18px);
-  margin: 0 auto;
+  justify-content: space-around;
+  background-color: #FFFFFF;
+  border: 1.5px solid #C8AD7F;
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 6px 20px rgba(34, 38, 46, 0.04);
+  margin-bottom: 24px;
 }
 
-.countdown-box-col {
+.countdown-master-col {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 }
 
-.countdown-box {
-  width: clamp(70px, 16vw, 96px);
-  height: clamp(82px, 19vw, 108px);
-  background-color: #FFFFFF;
-  border: 1px solid rgba(194, 166, 118, 0.5);
-  box-shadow: 0 4px 14px rgba(34, 38, 46, 0.03);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  transition: transform var(--transition-smooth), border-color var(--transition-smooth);
-}
-
-.countdown-box:hover {
-  transform: translateY(-2px);
-  border-color: var(--ccb-champagne);
-}
-
-.countdown-box-num {
+.countdown-master-num {
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 6.2vw, 3.6rem);
-  font-weight: 400;
+  font-size: clamp(2.1rem, 5.5vw, 3rem);
+  font-weight: 600;
+  color: #1F242B;
   line-height: 1;
-  color: #22262E;
   font-variant-numeric: tabular-nums;
 }
 
-.countdown-box-label {
-  margin-top: 12px;
+.countdown-master-label {
+  margin-top: 6px;
   font-family: var(--font-sans);
-  font-size: clamp(0.62rem, 1.5vw, 0.72rem);
+  font-size: 0.66rem;
   font-weight: 600;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #8C857B;
+  color: #555E6B;
 }
 
-.countdown-box-sep {
-  font-family: var(--font-serif);
-  font-size: clamp(1.4rem, 3.5vw, 2rem);
-  font-weight: 400;
-  color: var(--ccb-champagne);
-  margin-top: -28px;
-  user-select: none;
+.countdown-master-divider {
+  width: 1px;
+  height: 38px;
+  background-color: #E2D7C5;
 }
 
-.countdown-minimal-date {
-  margin-top: 36px;
+.countdown-scripture-wrap {
+  text-align: center;
+  margin-top: 14px;
+}
+
+.countdown-scripture-quote {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  color: var(--ccb-olive);
-  letter-spacing: 0.04em;
+  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+  color: #1F242B;
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.countdown-scripture-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.rule-line {
+  width: 44px;
+  height: 1px;
+  background-color: #C8AD7F;
+}
+
+.rule-text {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #4A5846;
 }
 
 .countdown-status {
