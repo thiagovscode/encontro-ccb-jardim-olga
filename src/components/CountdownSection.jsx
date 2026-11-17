@@ -1,4 +1,4 @@
-import { ClefWatermark, SolfeggioStrip } from './CcbVisuals';
+import { StaffClefDivider } from './CcbVisuals';
 
 export default function CountdownSection({ countdown }) {
   const { phase, days, hours, minutes, seconds, statusText } = countdown;
@@ -15,17 +15,20 @@ export default function CountdownSection({ countdown }) {
             21 de novembro de 2026, às 11h30 — Horário de Brasília
           </p>
 
-          <SolfeggioStrip />
+          <StaffClefDivider />
+        </div>
+
+        {/* Desenho arquitetônico da Igreja CCB integrado ao contador */}
+        <div className="countdown-illustration-wrap reveal">
+          <img
+            src="/images/ccb-igreja.jpg"
+            alt="Ilustração da fachada da Congregação Cristã no Brasil"
+            className="countdown-church-img"
+            loading="lazy"
+          />
         </div>
 
         <div className="countdown-card reveal" aria-live="polite">
-          <div className="card-corner card-corner--left" aria-hidden="true">
-            <ClefWatermark type="treble" />
-          </div>
-          <div className="card-corner card-corner--right" aria-hidden="true">
-            <ClefWatermark type="bass" />
-          </div>
-
           {phase === 'upcoming' ? (
             <div className="countdown-grid">
               <div className="countdown-item">
