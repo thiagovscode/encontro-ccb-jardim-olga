@@ -1330,32 +1330,13 @@ a {
   gap: 24px;
 }
 
-.share-showcase-frame {
-  position: relative;
+.share-card-wrapper {
   width: 100%;
-  max-width: 440px;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1.5px solid #C8AD7F;
-  box-shadow:
-    0 16px 44px rgba(34, 38, 46, 0.12),
-    0 4px 14px rgba(34, 38, 46, 0.05);
-  background-color: #FAF9F6;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
 }
 
-.share-showcase-frame:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 20px 54px rgba(34, 38, 46, 0.16),
-    0 6px 18px rgba(34, 38, 46, 0.08);
-}
-
-.share-showcase-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
 
 .share-actions-group {
   display: flex;
@@ -1382,6 +1363,20 @@ a {
   text-align: center;
   animation: fadeIn 0.3s ease;
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
 
 /* ==========================================================================
    RODAPÉ

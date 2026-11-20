@@ -1,29 +1,69 @@
 import { useState } from 'react';
-import { Download, Share2 } from 'lucide-react';
-import masterInvitationImg from '../assets/ccb-convite-oficial.jpg';
-import { ConcertCornerOrnament, StaffClefDivider } from './CcbVisuals';
+import { Download, Loader2, Share2 } from 'lucide-react';
+import { toBlob, toPng } from 'html-to-image';
+import { StaffClefDivider } from './CcbVisuals';
+import InvitationCard from './InvitationCard';
 
-export default function ShareWhatsAppSection() {
+export default function ShareWhatsAppSection({ countdown }) {
+  const [isProcessing, setIsProcessing] = useState(false);
   const [feedback, setFeedback] = useState('');
 
-  // Baixar imagem oficial do convite em alta resolução
-  function handleDownloadImage() {
-    const link = document.createElement('a');
-    link.href = masterInvitationImg;
-    link.download = 'convite-encontro-ccb-jardim-olga.jpg';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setFeedback('Imagem do convite baixada com sucesso.');
+  // Captura o cartão oficial do convite em altíssima definição (retina 2x)
+  async function getCardNode() {
+    return (
+      document.getElementById('convite-share-card') ||
+      document.getElementById('convite-card')
+    );
   }
 
-  // Compartilhar estritamente a imagem no WhatsApp (sem texto longo desnecessário)
+  // Baixar imagem do convite em alta resolução PNG
+  async function handleDownloadImage() {
+    try {
+      setIsProcessing(true);
+      setFeedback('Gerando imagem em alta resolução...');
+
+      const node = await getCardNode();
+      if (!node) throw new Error('Card não encontrado');
+
+      const dataUrl = await toPng(node, {
+        pixelRatio: 2,
+        cacheBust: true
+      });
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'convite-encontro-ccb-jardim-olga.png';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setFeedback('Imagem do convite salva com sucesso.');
+    } catch (err) {
+      console.error(err);
+      setFeedback('Não foi possível gerar a imagem no momento.');
+    } finally {
+      setIsProcessing(false);
+    }
+  }
+
+  // Compartilhar a imagem gerada diretamente no WhatsApp
   async function handleShareWhatsApp() {
     try {
-      const response = await fetch(masterInvitationImg);
-      const blob = await response.blob();
-      const file = new File([blob], 'convite-encontro-ccb-jardim-olga.jpg', {
-        type: 'image/jpeg'
+      setIsProcessing(true);
+      setFeedback('Preparando convite para envio...');
+
+      const node = await getCardNode();
+      if (!node) throw new Error('Card não encontrado');
+
+      const blob = await toBlob(node, {
+        pixelRatio: 2,
+        cacheBust: true
+      });
+
+      if (!blob) throw new Error('Falha ao gerar blob');
+
+      const file = new File([blob], 'convite-encontro-ccb-jardim-olga.png', {
+        type: 'image/png'
       });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -31,22 +71,39 @@ export default function ShareWhatsAppSection() {
           files: [file]
         });
         setFeedback('Convite compartilhado com sucesso.');
+        setIsProcessing(false);
         return;
       }
-    } catch (err) {
-      if (err && err.name === 'AbortError') return;
-    }
 
-    // Se o navegador não suportar compartilhamento direto de arquivos (ex: desktop)
-    const currentUrl =
-      typeof window !== 'undefined' ? window.location.href.split('#')[0] : '';
-    const cleanMsg = `Convite: Encontro CCB Jardim Olga — 21 de Novembro de 2026\n${currentUrl}`;
-    window.open(
-      `https://wa.me/?text=${encodeURIComponent(cleanMsg)}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-    setFeedback('Abrindo WhatsApp...');
+      // Se for desktop ou navegador sem suporte a compartilhamento de arquivos nativo:
+      const dataUrl = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = 'convite-encontro-ccb-jardim-olga.png';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(dataUrl);
+
+      const currentUrl =
+        typeof window !== 'undefined' ? window.location.href.split('#')[0] : '';
+      const cleanMsg = `Convite: Encontro CCB Jardim Olga — 21 de Novembro de 2026\n${currentUrl}`;
+      window.open(
+        `https://wa.me/?text=${encodeURIComponent(cleanMsg)}`,
+        '_blank',
+        'noopener,noreferrer'
+      );
+      setFeedback('Imagem baixada e WhatsApp aberto para envio.');
+    } catch (err) {
+      if (err && err.name === 'AbortError') {
+        setFeedback('');
+        return;
+      }
+      console.error(err);
+      setFeedback('Não foi possível compartilhar a imagem.');
+    } finally {
+      setIsProcessing(false);
+    }
   }
 
   return (
@@ -59,25 +116,14 @@ export default function ShareWhatsAppSection() {
           </h2>
           <StaffClefDivider />
           <p className="section-caption">
-            Envie a arte oficial do convite para os irmãos ou salve a imagem em seu aparelho.
+            Envie a arte oficial do convite para os irmãos ou baixe a imagem em seu aparelho.
           </p>
         </div>
 
-        {/* Showcase Centralizado e Elegante do Convite */}
+        {/* Prévia Fiel do Cartão do Convite (Novo Design) */}
         <div className="share-showcase-container reveal">
-          <div className="share-showcase-frame">
-            {/* Cantoneiras Clássicas Ornamentais */}
-            <ConcertCornerOrnament position="top-left" />
-            <ConcertCornerOrnament position="top-right" />
-            <ConcertCornerOrnament position="bottom-left" />
-            <ConcertCornerOrnament position="bottom-right" />
-
-            <img
-              src={masterInvitationImg}
-              alt="Arte Oficial do Convite — Encontro CCB Jardim Olga"
-              className="share-showcase-image"
-              loading="lazy"
-            />
+          <div className="share-card-wrapper">
+            <InvitationCard id="convite-share-card" countdown={countdown} />
           </div>
 
           {/* Grupo de Ações Equilibrado e Objetivo */}
@@ -86,8 +132,13 @@ export default function ShareWhatsAppSection() {
               type="button"
               className="btn btn-primary share-action-btn"
               onClick={handleShareWhatsApp}
+              disabled={isProcessing}
             >
-              <Share2 className="btn-icon" aria-hidden="true" />
+              {isProcessing ? (
+                <Loader2 className="btn-icon animate-spin" aria-hidden="true" />
+              ) : (
+                <Share2 className="btn-icon" aria-hidden="true" />
+              )}
               <span>COMPARTILHAR NO WHATSAPP</span>
             </button>
 
@@ -95,8 +146,13 @@ export default function ShareWhatsAppSection() {
               type="button"
               className="btn btn-secondary share-action-btn"
               onClick={handleDownloadImage}
+              disabled={isProcessing}
             >
-              <Download className="btn-icon" aria-hidden="true" />
+              {isProcessing ? (
+                <Loader2 className="btn-icon animate-spin" aria-hidden="true" />
+              ) : (
+                <Download className="btn-icon" aria-hidden="true" />
+              )}
               <span>BAIXAR IMAGEM DO CONVITE</span>
             </button>
           </div>
