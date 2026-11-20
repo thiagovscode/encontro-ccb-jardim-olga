@@ -1,82 +1,52 @@
-import { useEffect, useRef, useState } from 'react';
-import { Download, MessageCircle, Share2 } from 'lucide-react';
-import { EVENT_DATA } from '../data/eventData';
-import { renderShareCardCanvas } from '../utils/shareCardCanvas';
-import { StaffClefDivider } from './CcbVisuals';
+import { useState } from 'react';
+import { Download, Share2 } from 'lucide-react';
+import masterInvitationImg from '../assets/ccb-convite-oficial.jpg';
+import { ConcertCornerOrnament, StaffClefDivider } from './CcbVisuals';
 
-export default function ShareWhatsAppSection({ countdown }) {
-  const canvasRef = useRef(null);
+export default function ShareWhatsAppSection() {
   const [feedback, setFeedback] = useState('');
 
-  const { phase, days, hours, minutes } = countdown;
-
-  useEffect(() => {
-    const draw = () => renderShareCardCanvas(canvasRef.current, countdown);
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(draw);
-    } else {
-      draw();
-    }
-  }, [phase, days, hours, minutes]);
-
-  const currentUrl =
-    typeof window !== 'undefined' ? window.location.href.split('#')[0] : '';
-
-  const whatsappMessage = [
-    `*${EVENT_DATA.title}*`,
-    `"${EVENT_DATA.subtitle}"`,
-    '',
-    `Data: ${EVENT_DATA.dateFormatted}`,
-    `Horário: ${EVENT_DATA.timeFormatted}`,
-    '',
-    `Confira o convite: ${currentUrl}`
-  ].join('\n');
-
-  const whatsappHref = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
-
-  function triggerDownload() {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    renderShareCardCanvas(canvas, countdown);
+  // Baixar imagem oficial do convite em alta resolução
+  function handleDownloadImage() {
     const link = document.createElement('a');
-    link.download = 'convite-encontro-ccb-jardim-olga.png';
-    link.href = canvas.toDataURL('image/png');
+    link.href = masterInvitationImg;
+    link.download = 'convite-encontro-ccb-jardim-olga.jpg';
+    document.body.appendChild(link);
     link.click();
+    link.remove();
+    setFeedback('Imagem do convite baixada com sucesso.');
   }
 
-  function handleDownload() {
-    triggerDownload();
-    setFeedback('Imagem do convite salva.');
-  }
-
-  // Compartilha estritamente apenas a imagem, sem texto adicional
-  function handleShareImage() {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    renderShareCardCanvas(canvas, countdown);
-
-    canvas.toBlob(async (blob) => {
-      if (!blob) return;
-      const file = new File([blob], 'convite-encontro-ccb-jardim-olga.png', {
-        type: 'image/png'
+  // Compartilhar estritamente a imagem no WhatsApp (sem texto longo desnecessário)
+  async function handleShareWhatsApp() {
+    try {
+      const response = await fetch(masterInvitationImg);
+      const blob = await response.blob();
+      const file = new File([blob], 'convite-encontro-ccb-jardim-olga.jpg', {
+        type: 'image/jpeg'
       });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        try {
-          await navigator.share({
-            files: [file]
-          });
-          setFeedback('Convite compartilhado com sucesso.');
-          return;
-        } catch (err) {
-          if (err && err.name === 'AbortError') return;
-        }
+        await navigator.share({
+          files: [file]
+        });
+        setFeedback('Convite compartilhado com sucesso.');
+        return;
       }
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;
+    }
 
-      triggerDownload();
-      setFeedback('Imagem baixada para você enviar no WhatsApp.');
-    }, 'image/png');
+    // Se o navegador não suportar compartilhamento direto de arquivos (ex: desktop)
+    const currentUrl =
+      typeof window !== 'undefined' ? window.location.href.split('#')[0] : '';
+    const cleanMsg = `Convite: Encontro CCB Jardim Olga — 21 de Novembro de 2026\n${currentUrl}`;
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(cleanMsg)}`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+    setFeedback('Abrindo WhatsApp...');
   }
 
   return (
@@ -88,46 +58,54 @@ export default function ShareWhatsAppSection({ countdown }) {
             Convite para WhatsApp
           </h2>
           <StaffClefDivider />
+          <p className="section-caption">
+            Envie a arte oficial do convite para os irmãos ou salve a imagem em seu aparelho.
+          </p>
         </div>
 
-        <div className="share-card reveal">
-          <div className="share-preview-wrap">
-            <canvas
-              ref={canvasRef}
-              className="share-canvas"
-              width={1152}
-              height={1536}
-              aria-label="Prévia do cartão digital oficial do Encontro CCB Jardim Olga"
+        {/* Showcase Centralizado e Elegante do Convite */}
+        <div className="share-showcase-container reveal">
+          <div className="share-showcase-frame">
+            {/* Cantoneiras Clássicas Ornamentais */}
+            <ConcertCornerOrnament position="top-left" />
+            <ConcertCornerOrnament position="top-right" />
+            <ConcertCornerOrnament position="bottom-left" />
+            <ConcertCornerOrnament position="bottom-right" />
+
+            <img
+              src={masterInvitationImg}
+              alt="Arte Oficial do Convite — Encontro CCB Jardim Olga"
+              className="share-showcase-image"
+              loading="lazy"
             />
           </div>
 
-          <div className="share-actions-col">
-            <div className="share-actions">
-              <button type="button" className="btn btn-primary" onClick={handleShareImage}>
-                <Share2 className="btn-icon" aria-hidden="true" />
-                <span>COMPARTILHAR IMAGEM NO WHATSAPP</span>
-              </button>
+          {/* Grupo de Ações Equilibrado e Objetivo */}
+          <div className="share-actions-group">
+            <button
+              type="button"
+              className="btn btn-primary share-action-btn"
+              onClick={handleShareWhatsApp}
+            >
+              <Share2 className="btn-icon" aria-hidden="true" />
+              <span>COMPARTILHAR NO WHATSAPP</span>
+            </button>
 
-              <button type="button" className="btn btn-secondary" onClick={handleDownload}>
-                <Download className="btn-icon" aria-hidden="true" />
-                <span>BAIXAR IMAGEM DO CONVITE</span>
-              </button>
+            <button
+              type="button"
+              className="btn btn-secondary share-action-btn"
+              onClick={handleDownloadImage}
+            >
+              <Download className="btn-icon" aria-hidden="true" />
+              <span>BAIXAR IMAGEM DO CONVITE</span>
+            </button>
+          </div>
 
-              <a
-                href={whatsappHref}
-                className="btn btn-outline"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="btn-icon" aria-hidden="true" />
-                <span>COMPARTILHAR NO WHATSAPP</span>
-              </a>
-            </div>
-
-            <p className="share-feedback" aria-live="polite">
+          {feedback && (
+            <p className="share-feedback-toast" aria-live="polite">
               {feedback}
             </p>
-          </div>
+          )}
         </div>
       </div>
     </section>
