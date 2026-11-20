@@ -1,13 +1,30 @@
 /**
  * Elementos visuais, musicais e arquitetônicos — Encontro CCB Jardim Olga
- * Estética de Programa de Concerto Clássico & Tradição da Congregação Cristã no Brasil (CCB)
- * - Pautas de 5 linhas e claves (Sol, Dó e Fá)
- * - Ilustração arquitetônica vetorial da Fachada CCB integrada
- * - Gravura em traço fino de instrumentos de orquestra (violino, arco, flauta e partitura)
- * - Cantoneiras e ornatos clássicos de programas de concerto
+ * Estética clássica inspirada na Casa de Oração CCB e na Orquestra
  */
 
-// 1. Pauta Musical com Claves de Sol, Dó e Fá
+// 1. Ornato de Filigrana Dourada Superior
+export function TopFiligreeOrnament({ className = '' }) {
+  return (
+    <div className={`invite-top-filigree ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 160 32" fill="none" className="filigree-svg">
+        <path
+          d="M 80 6 C 68 6 58 14 46 14 C 36 14 30 8 20 8 C 12 8 4 14 2 16 C 12 18 20 22 28 22 C 40 22 48 16 58 16 C 68 16 74 24 80 24 C 86 24 92 16 102 16 C 112 16 120 22 132 22 C 140 22 148 18 158 16 C 156 14 148 8 140 8 C 130 8 124 14 114 14 C 102 14 92 6 80 6 Z"
+          stroke="#C8AD7F"
+          strokeWidth="1.2"
+          fill="none"
+        />
+        <circle cx="80" cy="15" r="3" fill="#C8AD7F" />
+        <circle cx="58" cy="16" r="2" fill="#C8AD7F" />
+        <circle cx="102" cy="16" r="2" fill="#C8AD7F" />
+        <circle cx="34" cy="14" r="1.5" fill="#C8AD7F" />
+        <circle cx="126" cy="14" r="1.5" fill="#C8AD7F" />
+      </svg>
+    </div>
+  );
+}
+
+// 2. Pauta Musical com Claves de Sol, Dó e Fá
 export function StaffClefDivider({ light = false }) {
   return (
     <div className={`ccb-staff-divider ${light ? 'ccb-staff-divider--light' : ''}`} aria-hidden="true">
@@ -59,71 +76,12 @@ export function StaffClefDivider({ light = false }) {
   );
 }
 
-// 2. Gravura em Traço Fino de Instrumentos de Orquestra (Violino, Flauta e Pautas)
-// Estilo gravura clássica de programa de concerto
-export function OrchestralInstrumentsFlourish({ className = '' }) {
-  return (
-    <div className={`ccb-orchestral-flourish ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 460 76" fill="none" className="orchestral-flourish-svg">
-        {/* Pauta Musical Ondulada Flutuante */}
-        <g stroke="#9AA3AF" strokeWidth="0.75" strokeOpacity="0.45">
-          <path d="M 10 38 Q 115 18 230 38 T 450 38" />
-          <path d="M 10 42 Q 115 22 230 42 T 450 42" />
-          <path d="M 10 46 Q 115 26 230 46 T 450 46" />
-          <path d="M 10 50 Q 115 30 230 50 T 450 50" />
-          <path d="M 10 54 Q 115 34 230 54 T 450 54" />
-        </g>
-
-        {/* Violino em Linhas Finas no Lado Esquerdo */}
-        <g transform="translate(68, 6) rotate(-16)" stroke="#363C46" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-          {/* Corpo do violino */}
-          <path d="M 22 18 C 14 18 8 26 8 36 C 8 46 16 48 18 52 C 14 56 6 64 6 78 C 6 92 16 100 28 100 C 40 100 50 92 50 78 C 50 64 42 56 38 52 C 40 48 48 46 48 36 C 48 26 42 18 34 18 Z" fill="#F8F9FA" fillOpacity="0.8" />
-          {/* Braço e Cravelhame */}
-          <rect x="25" y="-8" width="6" height="26" fill="#363C46" />
-          <circle cx="28" cy="-12" r="5" fill="#F8F9FA" stroke="#363C46" strokeWidth="1" />
-          {/* Efes do violino (f-holes) */}
-          <path d="M 18 42 C 16 46 19 50 17 56" stroke="#363C46" strokeWidth="1.1" fill="none" />
-          <path d="M 38 42 C 40 46 37 50 39 56" stroke="#363C46" strokeWidth="1.1" fill="none" />
-          {/* Cordas */}
-          <line x1="26.5" y1="-8" x2="26.5" y2="76" stroke="#C8AD7F" strokeWidth="0.6" />
-          <line x1="28" y1="-8" x2="28" y2="76" stroke="#C8AD7F" strokeWidth="0.6" />
-          <line x1="29.5" y1="-8" x2="29.5" y2="76" stroke="#C8AD7F" strokeWidth="0.6" />
-          {/* Arco do violino cruzado */}
-          <line x1="-12" y1="18" x2="68" y2="82" stroke="#C8AD7F" strokeWidth="1.2" />
-        </g>
-
-        {/* Flauta Transversal Clássica no Lado Direito */}
-        <g transform="translate(320, 22) rotate(22)" stroke="#363C46" strokeWidth="1">
-          <line x1="-18" y1="20" x2="94" y2="20" stroke="#363C46" strokeWidth="2.4" strokeLinecap="round" />
-          <line x1="-18" y1="20" x2="94" y2="20" stroke="#C8AD7F" strokeWidth="1" strokeLinecap="round" />
-          {/* Chaves da flauta */}
-          {[6, 16, 26, 36, 46, 56, 66, 76].map((kx) => (
-            <circle key={kx} cx={kx} cy="16.5" r="2.2" fill="#FFFFFF" stroke="#363C46" strokeWidth="0.8" />
-          ))}
-          <ellipse cx="-8" cy="20" rx="2" ry="1.2" fill="#363C46" />
-        </g>
-
-        {/* Clave de Sol Central em Destaque Champagne/Grafite */}
-        <g transform="translate(216, 10)">
-          <path
-            d="M 14 42 C 9 42 6 39 6 35 C 6 31 10 28 14 29 C 17 30 19 34 16 37 C 14 39 10 39 9 37 C 6 33 8 27 13 21 C 17 17 19 12 18 7 C 18 3 15 0.5 13 0.5 C 10 0.5 9 3.5 10 8 L 14 43 C 14.5 46 13 48 10 48 C 8 48 6.5 46.5 7 44.5"
-            stroke="#C8AD7F"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-// 3. Cantoneiras Clássicas de Programa Musical
+// 3. Cantoneiras Clássicas de Convite
 export function ConcertCornerOrnament({ position = 'top-left' }) {
   return (
     <div className={`concert-corner concert-corner--${position}`} aria-hidden="true">
       <svg viewBox="0 0 44 44" fill="none" className="concert-corner-svg">
-        <path d="M 4 44 V 12 C 4 7.5 7.5 4 12 4 H 44" stroke="#9AA3AF" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M 4 44 V 12 C 4 7.5 7.5 4 12 4 H 44" stroke="#8C939E" strokeWidth="1.2" strokeLinecap="round" />
         <path d="M 10 44 V 16 C 10 12.6 12.6 10 16 10 H 44" stroke="#C8AD7F" strokeWidth="0.8" strokeLinecap="round" />
         <circle cx="12" cy="12" r="2.4" fill="#C8AD7F" />
       </svg>
@@ -131,58 +89,59 @@ export function ConcertCornerOrnament({ position = 'top-left' }) {
   );
 }
 
-// 4. Marca d'água das Claves
-export function ClefWatermark({ type = 'treble' }) {
-  if (type === 'treble') {
-    return (
-      <svg className="ccb-clef-watermark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+// 3.1 Folhagem de Ramos de Oliveira para os Cantos do Convite
+export function OliveFoliageCorner({ position = 'top-left' }) {
+  const isRight = position.includes('right');
+  const isBottom = position.includes('bottom');
+  return (
+    <div className={`olive-corner olive-corner--${position}`} aria-hidden="true">
+      <svg
+        viewBox="0 0 76 76"
+        fill="none"
+        className="olive-corner-svg"
+        style={{
+          transform: `${isRight ? 'scaleX(-1)' : ''} ${isBottom ? 'scaleY(-1)' : ''}`.trim() || undefined
+        }}
+      >
         <path
-          d="M25 38C21.5 38 19 35.5 19 32.5C19 28.8 22.8 26.5 26.5 27.8C29.5 28.8 30.8 32 28.8 34.8C27 37 23.8 37.2 22.2 35C19.8 31.8 21 26.2 25.2 21.5C28.5 17.8 30.5 13.8 30 9.5C29.8 6.5 27.8 4.2 25.8 4.2C23.8 4.2 22.2 7 22.6 11.2L27 38.8C27.3 41.5 25.8 43.5 23.5 43.5C21.5 43.5 20.2 42 20.8 40.2"
-          stroke="currentColor"
-          strokeWidth="1.5"
+          d="M 6 6 C 20 14 36 30 52 60"
+          stroke="#4A5846"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          strokeOpacity="0.45"
+        />
+        <ellipse cx="14" cy="11" rx="9" ry="3.8" transform="rotate(-32 14 11)" fill="#4A5846" fillOpacity="0.4" />
+        <ellipse cx="28" cy="19" rx="10" ry="4.2" transform="rotate(-16 28 19)" fill="#63755E" fillOpacity="0.35" />
+        <ellipse cx="20" cy="25" rx="8.5" ry="3.6" transform="rotate(42 20 25)" fill="#4A5846" fillOpacity="0.38" />
+        <ellipse cx="38" cy="31" rx="10.5" ry="4.2" transform="rotate(-26 38 31)" fill="#4A5846" fillOpacity="0.45" />
+        <ellipse cx="33" cy="41" rx="9.5" ry="3.8" transform="rotate(48 33 41)" fill="#63755E" fillOpacity="0.3" />
+        <ellipse cx="49" cy="48" rx="8.5" ry="3.6" transform="rotate(-12 49 48)" fill="#4A5846" fillOpacity="0.38" />
+        <circle cx="26" cy="25" r="2.2" fill="#C8AD7F" fillOpacity="0.75" />
+      </svg>
+    </div>
+  );
+}
+
+
+// 4. Centro da Fachada CCB com Notas Musicais Flutuantes e Clave
+export function CcbChurchCenterpiece({ className = '' }) {
+  return (
+    <div className={`church-centerpiece-wrap ${className}`} aria-hidden="true">
+      {/* Clave de Sol Translúcida no Fundo Esquerdo */}
+      <svg viewBox="0 0 100 160" fill="none" className="floating-clef-bg">
+        <path
+          d="M 52 142 C 42 142 36 134 36 124 C 36 110 48 102 60 106 C 70 109 74 122 68 131 C 62 138 52 139 46 132 C 38 122 42 100 58 82 C 70 68 76 52 74 36 C 73 24 67 16 60 16 C 53 16 48 24 49 38 L 56 145 C 57 154 52 159 45 159 C 38 159 34 154 36 148"
+          stroke="#C8AD7F"
+          strokeWidth="3"
+          strokeOpacity="0.22"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
-    );
-  }
 
-  if (type === 'bass') {
-    return (
-      <svg className="ccb-clef-watermark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-        <path
-          d="M15 16C15 12.2 18.2 10 22 10C26.8 10 30 13.8 30 19.2C30 26.5 24.2 33 15 37.5"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-        />
-        <circle cx="16.5" cy="17" r="2" fill="currentColor" />
-        <circle cx="34.5" cy="14" r="1.6" fill="currentColor" />
-        <circle cx="34.5" cy="21" r="1.6" fill="currentColor" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg className="ccb-clef-watermark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <line x1="16" y1="8" x2="16" y2="40" stroke="currentColor" strokeWidth="2.5" />
-      <line x1="20" y1="8" x2="20" y2="40" stroke="currentColor" strokeWidth="1" />
-      <path
-        d="M20 12C28 12 34 16 34 20C34 24 28 28 22 28C28 28 34 32 34 36C34 40 28 44 20 44"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-// 5. Silhueta Arquitetônica Vetorial Integrada da Fachada CCB (Sem Fundo / Transparente)
-export function CcbFacadeIllustration() {
-  return (
-    <div className="ccb-facade-wrap" aria-hidden="true">
+      {/* Fachada Arquitetônica da Igreja CCB */}
       <svg
-        className="ccb-facade-svg"
+        className="church-facade-svg"
         viewBox="0 0 640 340"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -284,7 +243,7 @@ export function CcbFacadeIllustration() {
           CONGREGAÇÃO CRISTÃ NO BRASIL
         </text>
 
-        {/* Térreo: Pilares, Cobogós e Portão / Entrada Minimalista */}
+        {/* Térreo: Pilares, Cobogós e Portão */}
         <g fill="#F1F4F8" stroke="#22262E" strokeWidth="0.7" strokeOpacity="0.5">
           <rect x="100" y="234" width="28" height="14" />
           <rect x="136" y="234" width="28" height="14" />
@@ -294,24 +253,18 @@ export function CcbFacadeIllustration() {
           <rect x="512" y="234" width="28" height="14" />
         </g>
 
-        {/* Pilares laterais do portão */}
         <rect x="80" y="228" width="16" height="90" fill="#FFFFFF" stroke="#22262E" strokeWidth="1.2" />
         <rect x="544" y="228" width="16" height="90" fill="#FFFFFF" stroke="#22262E" strokeWidth="1.2" />
         <rect x="250" y="228" width="12" height="90" fill="#FFFFFF" stroke="#22262E" strokeWidth="1.1" />
         <rect x="378" y="228" width="12" height="90" fill="#FFFFFF" stroke="#22262E" strokeWidth="1.1" />
 
-        {/* Viga horizontal do portão frontal */}
         <line x1="96" y1="254" x2="544" y2="254" stroke="#22262E" strokeWidth="1.4" />
         <line x1="96" y1="312" x2="544" y2="312" stroke="#22262E" strokeWidth="1.4" />
 
-        {/* Gradil vertical do portão */}
         <g stroke="#22262E" strokeWidth="0.85" strokeOpacity="0.55">
-          {/* Bloco Esquerdo */}
           {[108, 120, 132, 144, 156, 168, 180, 192, 204, 216, 228, 240].map((x) => (
             <line key={x} x1={x} y1="254" x2={x} y2="312" />
           ))}
-
-          {/* Entrada Central com Porta Dupla Arquitetônica */}
           <line x1="262" y1="254" x2="262" y2="312" strokeOpacity="0.8" />
           <line x1="274" y1="254" x2="274" y2="312" />
           <line x1="286" y1="254" x2="286" y2="312" />
@@ -322,13 +275,45 @@ export function CcbFacadeIllustration() {
           <line x1="342" y1="254" x2="342" y2="312" />
           <line x1="354" y1="254" x2="354" y2="312" />
           <line x1="366" y1="254" x2="366" y2="312" />
-
-          {/* Bloco Direito */}
           {[400, 412, 424, 436, 448, 460, 472, 484, 496, 508, 520, 532].map((x) => (
             <line key={x} x1={x} y1="254" x2={x} y2="312" />
           ))}
         </g>
       </svg>
+
+      {/* Pautas e Notas Musicais Douradas Flutuando à Direita */}
+      <svg viewBox="0 0 160 120" fill="none" className="floating-stave-notes">
+        {/* Pauta Ondulada */}
+        <path d="M 10 70 Q 60 40 140 20" stroke="#C8AD7F" strokeWidth="1" strokeOpacity="0.45" />
+        <path d="M 12 76 Q 62 46 142 26" stroke="#C8AD7F" strokeWidth="1" strokeOpacity="0.45" />
+        <path d="M 14 82 Q 64 52 144 32" stroke="#C8AD7F" strokeWidth="1" strokeOpacity="0.45" />
+
+        {/* Notas Musicais em Dourado */}
+        {/* Colcheia 1 */}
+        <ellipse cx="65" cy="52" rx="4" ry="2.8" transform="rotate(-15 65 52)" fill="#C8AD7F" />
+        <line x1="68" y1="51" x2="68" y2="28" stroke="#C8AD7F" strokeWidth="1.3" strokeLinecap="round" />
+        <path d="M 68 28 Q 78 32 75 42" stroke="#C8AD7F" strokeWidth="1.3" fill="none" />
+
+        {/* Semínima */}
+        <ellipse cx="105" cy="38" rx="4.2" ry="3" transform="rotate(-15 105 38)" fill="#C8AD7F" />
+        <line x1="108.5" y1="37" x2="108.5" y2="14" stroke="#C8AD7F" strokeWidth="1.3" strokeLinecap="round" />
+
+        {/* Duas colcheias ligadas */}
+        <ellipse cx="128" cy="24" rx="3.6" ry="2.5" transform="rotate(-15 128 24)" fill="#C8AD7F" />
+        <line x1="131" y1="23" x2="131" y2="6" stroke="#C8AD7F" strokeWidth="1.2" strokeLinecap="round" />
+        <ellipse cx="146" cy="18" rx="3.6" ry="2.5" transform="rotate(-15 146 18)" fill="#C8AD7F" />
+        <line x1="149" y1="17" x2="149" y2="2" stroke="#C8AD7F" strokeWidth="1.2" strokeLinecap="round" />
+        <line x1="131" y1="6" x2="149" y2="2" stroke="#C8AD7F" strokeWidth="2.2" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
+
+// 5. Ilustração da Fachada Isolada (para a Seção de Localização)
+export function CcbFacadeIllustration() {
+  return (
+    <div className="ccb-facade-wrap" aria-hidden="true">
+      <StaffClefDivider />
     </div>
   );
 }
@@ -343,10 +328,8 @@ export function FinalBarDivider() {
         <line x1="6" y1="14" x2="84" y2="14" stroke="currentColor" strokeOpacity="0.35" strokeWidth="0.8" />
         <line x1="6" y1="19" x2="84" y2="19" stroke="currentColor" strokeOpacity="0.35" strokeWidth="0.8" />
         <line x1="6" y1="24" x2="84" y2="24" stroke="currentColor" strokeOpacity="0.35" strokeWidth="0.8" />
-
         <path d="M40 6C40 2.5 50 2.5 50 6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
         <circle cx="45" cy="5.5" r="0.9" fill="currentColor" />
-
         <line x1="42" y1="9" x2="42" y2="24" stroke="currentColor" strokeWidth="1" />
         <line x1="47" y1="9" x2="47" y2="24" stroke="currentColor" strokeWidth="2.8" />
       </svg>
