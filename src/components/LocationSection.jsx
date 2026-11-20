@@ -1,19 +1,17 @@
 import { ExternalLink, MapPin, Navigation } from 'lucide-react';
 import { EVENT_DATA } from '../data/eventData';
-import { CcbFacadeIllustration } from './CcbVisuals';
+import { StaffClefDivider } from './CcbVisuals';
 
 export default function LocationSection() {
   return (
     <section id="localizacao" className="section section-location" aria-labelledby="location-heading">
       <div className="container">
         <div className="section-header reveal">
-          <p className="eyebrow">Localização</p>
+          <p className="eyebrow">Localização do Encontro</p>
           <h2 id="location-heading" className="section-title">
             ONDE VAMOS NOS ENCONTRAR?
           </h2>
-
-          {/* Fachada Arquitetônica da Igreja CCB */}
-          <CcbFacadeIllustration />
+          <StaffClefDivider />
         </div>
 
         <div className="location-card reveal">

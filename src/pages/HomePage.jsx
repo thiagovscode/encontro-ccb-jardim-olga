@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import HeroSection from '../components/HeroSection';
-import CountdownSection from '../components/CountdownSection';
-import MessageSection from '../components/MessageSection';
-import EventDetailsSection from '../components/EventDetailsSection';
 import LocationSection from '../components/LocationSection';
+import MessageSection from '../components/MessageSection';
 import ShareWhatsAppSection from '../components/ShareWhatsAppSection';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
@@ -38,32 +36,19 @@ export default function HomePage() {
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -20px 0px' }
     );
 
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  function handleExploreClick(event) {
-    event.preventDefault();
-    const target = document.getElementById('contador');
-    if (!target) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    target.scrollIntoView({
-      behavior: prefersReduced ? 'auto' : 'smooth',
-      block: 'start'
-    });
-  }
-
   return (
     <>
-      <HeroSection onExploreClick={handleExploreClick} />
+      <HeroSection countdown={countdown} />
       <main>
-        <CountdownSection countdown={countdown} />
-        <MessageSection />
-        <EventDetailsSection />
         <LocationSection />
+        <MessageSection />
         <ShareWhatsAppSection countdown={countdown} />
       </main>
       <Footer />

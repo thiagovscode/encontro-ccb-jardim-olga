@@ -16,18 +16,18 @@
   --ccb-gray-100: #EEF0F3;
   --ccb-gray-200: #DFE2E7;
   --ccb-gray-300: #C8CDD5;
-  --ccb-gray-500: #8C939E;
-  --ccb-gray-700: #4A515D;
-  --ccb-gray-900: #22262E;
+  --ccb-gray-500: #7A8494;
+  --ccb-gray-700: #4A5260;
+  --ccb-gray-900: #1F242B;
 
-  /* Toques complementares clássicos */
-  --ccb-champagne: #C2A676;
-  --ccb-champagne-light: #E8DCC6;
-  --ccb-champagne-soft: rgba(194, 166, 118, 0.28);
+  /* Toques complementares clássicos baseados na arte oficial */
+  --ccb-champagne: #C8AD7F;
+  --ccb-champagne-light: #EFE6D6;
+  --ccb-champagne-soft: rgba(200, 173, 127, 0.3);
 
-  --ccb-olive: #5B6852;
-  --ccb-olive-dark: #434D3D;
-  --ccb-olive-soft: #7C8B72;
+  --ccb-olive: #4A5846;
+  --ccb-olive-dark: #374234;
+  --ccb-olive-soft: #63755E;
   --ccb-olive-tint: #F3F5F1;
 
   /* Tipografia */
@@ -417,15 +417,17 @@ a {
 }
 
 .btn-primary {
-  background-color: var(--ccb-gray-900);
+  background-color: var(--ccb-olive);
   color: var(--ccb-white);
-  box-shadow: 0 4px 14px rgba(34, 38, 46, 0.16);
+  border: 1px solid var(--ccb-champagne);
+  box-shadow: 0 4px 14px rgba(74, 88, 70, 0.22);
 }
 
 .btn-primary:hover {
-  background-color: #15181E;
+  background-color: var(--ccb-olive-dark);
+  border-color: #E5D6C0;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(34, 38, 46, 0.22);
+  box-shadow: 0 6px 20px rgba(74, 88, 70, 0.32);
 }
 
 .btn-secondary {
@@ -461,221 +463,175 @@ a {
 /* ==========================================================================
    SEÇÃO 1: HERO (O CONVITE)
    ========================================================================== */
-.hero {
+.hero-master {
   position: relative;
   min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 0;
+  padding: clamp(36px, 6vw, 64px) 16px clamp(48px, 7vw, 76px);
   overflow: hidden;
-  background-color: var(--ccb-gray-50);
+  background: linear-gradient(180deg, #FBFBF9 0%, #F5F3EE 50%, #FAF9F6 100%);
 }
 
-.hero-backdrop {
+.hero-ambient-bg {
   position: absolute;
   inset: 0;
-  background-image: url('/images/hero-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  transform: scale(1.02);
+  background-image: radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.9) 0%, rgba(245, 243, 238, 0.6) 65%, rgba(235, 231, 222, 0.35) 100%);
+  pointer-events: none;
   z-index: 0;
 }
 
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.88) 0%,
-    rgba(247, 248, 250, 0.82) 45%,
-    rgba(255, 255, 255, 0.95) 100%
-  );
-  backdrop-filter: blur(2px);
-  z-index: 1;
-}
-
-.hero-music-staves-watermark {
-  position: absolute;
-  inset: 0;
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 20px,
-    rgba(140, 147, 158, 0.04) 21px,
-    transparent 22px
-  );
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero-container {
+.hero-master-container {
   position: relative;
-  z-index: 2;
-}
-
-/* Moldura Oficial do Convite com Filetes Dourados e Grafite */
-.official-invite-card {
-  position: relative;
-  background-color: #FAF9F6;
-  border: 1.5px solid #8C939E;
-  outline: 1px solid #C8AD7F;
-  outline-offset: -7px;
-  border-radius: var(--radius-md);
-  padding: 44px 24px 38px;
-  box-shadow: 0 16px 44px rgba(34, 38, 46, 0.08);
-  max-width: 660px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 680px;
   margin: 0 auto;
+}
+
+/* Moldura e Cartão Oficial do Convite */
+.master-card-container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  justify-content: center;
+}
+
+.master-card-frame {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(34, 38, 46, 0.16), 0 4px 14px rgba(34, 38, 46, 0.08);
+  background-color: #FAF9F6;
+  border: 1.5px solid rgba(200, 173, 127, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.master-card-frame:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 60px rgba(34, 38, 46, 0.2), 0 6px 18px rgba(34, 38, 46, 0.1);
+}
+
+.master-card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Overlay da Contagem Regressiva Dinâmica perfeitamente posicionado sobre a arte */
+.master-card-countdown-overlay {
+  position: absolute;
+  top: 70.3%;
+  left: 23%;
+  width: 56.6%;
+  height: 7.2%;
+  background-color: #FDFCFA;
+  border: 1.2px solid #D4C29E;
+  border-radius: clamp(6px, 1.8vw, 14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.master-countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  padding: 0 4px;
+}
+
+.master-countdown-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.master-countdown-num {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 4.4vw, 1.95rem);
+  font-weight: 600;
+  color: #1F242B;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.master-countdown-tag {
+  margin-top: clamp(1px, 0.4vw, 3px);
+  font-family: var(--font-sans);
+  font-size: clamp(0.42rem, 1.35vw, 0.6rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #4A5260;
+  line-height: 1;
+}
+
+.master-countdown-sep {
+  width: 1px;
+  height: 60%;
+  background-color: #E5D8C3;
+}
+
+.master-countdown-status {
+  font-family: var(--font-serif);
+  font-size: clamp(0.85rem, 2.5vw, 1.15rem);
+  font-weight: 600;
+  color: #4A5846;
   text-align: center;
 }
 
-.invite-top-filigree {
+/* Ações Rápidas no Hero */
+.master-hero-actions {
+  margin-top: 26px;
   display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
-}
-
-.filigree-svg {
-  width: 140px;
-  height: auto;
-}
-
-.invite-eyebrow-rule {
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.eyebrow-line {
-  width: 44px;
-  height: 1px;
-  background-color: #C8AD7F;
-}
-
-.eyebrow-text {
-  font-family: var(--font-sans);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  color: #4A5846;
-  text-transform: uppercase;
-}
-
-.invite-main-title {
-  font-family: var(--font-serif);
-  font-size: clamp(2.3rem, 6.8vw, 3.6rem);
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  color: #1F242B;
-  margin-bottom: 6px;
-  line-height: 1.05;
-}
-
-.invite-ribbon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px auto 14px;
-}
-
-.ribbon-flourish {
-  font-size: 1.3rem;
-  color: #C8AD7F;
-  user-select: none;
-}
-
-.invite-ribbon {
-  background-color: #4A5846;
-  border: 1.5px solid #C8AD7F;
-  padding: 6px 28px;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(74, 88, 70, 0.25);
-}
-
-.invite-ribbon span {
-  font-family: var(--font-serif);
-  font-size: clamp(1.2rem, 3.4vw, 1.6rem);
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: #FFFFFF;
-}
-
-.invite-subtitle {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.05rem, 2.8vw, 1.25rem);
-  color: #4A5260;
-  margin: 0 auto 22px;
-  max-width: 480px;
-  line-height: 1.45;
-}
-
-.invite-date-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background-color: #FFFFFF;
-  border: 1.5px solid #C8AD7F;
-  border-radius: 8px;
-  padding: 12px 28px;
-  margin: 0 auto 12px;
-  box-shadow: 0 4px 14px rgba(200, 173, 127, 0.12);
-}
-
-.invite-box-icon {
-  width: 20px;
-  height: 20px;
-  color: #C8AD7F;
-  flex-shrink: 0;
-}
-
-.invite-date-text {
-  font-family: var(--font-serif);
-  font-size: clamp(1.15rem, 3.2vw, 1.5rem);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #1F242B;
-}
-
-.invite-time-line {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 26px;
-}
-
-.time-line-rule {
-  width: 32px;
-  height: 1px;
-  background-color: #C8AD7F;
-}
-
-.time-icon {
-  width: 17px;
-  height: 17px;
-  color: #C8AD7F;
-}
-
-.time-text {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #1F242B;
-}
-
-.invite-cta-wrap {
-  display: flex;
-  justify-content: center;
-}
-
-.invite-cta {
+  gap: 14px;
   width: 100%;
-  max-width: 360px;
+  max-width: 520px;
+}
+
+.master-quick-buttons {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.action-btn {
+  flex: 1;
+  min-width: 220px;
+}
+
+.master-hero-actions .calendar-action-area {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+  width: 100%;
+}
+
+.master-hero-actions .calendar-dropdown-wrapper {
+  max-width: 100%;
+}
+
+.master-hero-actions .calendar-toggle-btn {
+  width: 100%;
+  min-height: 48px;
 }
 
 /* Caixa de Localização Estilo Convite Oficial */
@@ -705,120 +661,6 @@ a {
   font-weight: 700;
   color: #1F242B;
   letter-spacing: 0.02em;
-}
-
-/* ==========================================================================
-   SEÇÃO 2: CONTADOR REGRESSIVO OFICIAL (Com Painel e Versículo)
-   ========================================================================== */
-.section-countdown {
-  background-color: #FAF8F4;
-  border-top: 1px solid rgba(200, 173, 127, 0.3);
-  border-bottom: 1px solid rgba(200, 173, 127, 0.3);
-  padding: clamp(54px, 7vw, 84px) 20px;
-}
-
-.countdown-master-container {
-  max-width: 580px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.countdown-pill-badge {
-  display: inline-block;
-  background-color: #4A5846;
-  border: 1.2px solid #C8AD7F;
-  padding: 4px 20px;
-  border-radius: 20px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(74, 88, 70, 0.2);
-}
-
-.countdown-pill-badge span {
-  font-family: var(--font-sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #FFFFFF;
-}
-
-.countdown-master-panel {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background-color: #FFFFFF;
-  border: 1.5px solid #C8AD7F;
-  border-radius: 14px;
-  padding: 14px 18px;
-  box-shadow: 0 6px 20px rgba(34, 38, 46, 0.04);
-  margin-bottom: 24px;
-}
-
-.countdown-master-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-.countdown-master-num {
-  font-family: var(--font-serif);
-  font-size: clamp(2.1rem, 5.5vw, 3rem);
-  font-weight: 600;
-  color: #1F242B;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.countdown-master-label {
-  margin-top: 6px;
-  font-family: var(--font-sans);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: #555E6B;
-}
-
-.countdown-master-divider {
-  width: 1px;
-  height: 38px;
-  background-color: #E2D7C5;
-}
-
-.countdown-scripture-wrap {
-  text-align: center;
-  margin-top: 14px;
-}
-
-.countdown-scripture-quote {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: clamp(1.05rem, 2.8vw, 1.35rem);
-  color: #1F242B;
-  line-height: 1.45;
-  margin-bottom: 8px;
-}
-
-.countdown-scripture-rule {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.rule-line {
-  width: 44px;
-  height: 1px;
-  background-color: #C8AD7F;
-}
-
-.rule-text {
-  font-family: var(--font-sans);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: #4A5846;
 }
 
 .countdown-status {
