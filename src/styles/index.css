@@ -1312,44 +1312,7 @@ a {
   max-width: 300px;
 }
 
-/* ==========================================================================
-   SEÇÃO 6: COMPARTILHAMENTO WHATSAPP (Apresentação Editorial Harmoniosa)
-   ========================================================================== */
-.section-share {
-  background-color: var(--ccb-gray-50);
-  border-top: 1px solid var(--border-subtle);
-}
 
-.share-showcase-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  gap: 24px;
-}
-
-.share-card-wrapper {
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  justify-content: center;
-}
-
-
-.share-actions-group {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.share-action-btn {
-  flex: 1;
-  min-width: 220px;
-}
 
 .share-feedback-toast {
   font-size: 0.88rem;

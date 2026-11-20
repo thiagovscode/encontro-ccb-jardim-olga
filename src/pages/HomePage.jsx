@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import LocationSection from '../components/LocationSection';
 import MessageSection from '../components/MessageSection';
-import ShareWhatsAppSection from '../components/ShareWhatsAppSection';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 import { getCountdownState } from '../utils/countdown';
@@ -49,7 +48,6 @@ export default function HomePage() {
       <main>
         <LocationSection />
         <MessageSection />
-        <ShareWhatsAppSection countdown={countdown} />
       </main>
       <Footer />
       <ScrollToTopButton />
