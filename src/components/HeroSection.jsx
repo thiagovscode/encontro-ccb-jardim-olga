@@ -8,14 +8,27 @@ export default function HeroSection({ countdown }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [feedback, setFeedback] = useState('');
 
-  // Baixar imagem do convite em alta resolução PNG
+  // Retorna o nó calibrado na proporção oficial 3:4 (1200x1600) para o WhatsApp
+  function getExportNode() {
+    return (
+      document.getElementById('convite-export-card') ||
+      document.getElementById('convite-card')
+    );
+  }
+
+  // Baixar imagem do convite em alta resolução PNG na proporção 3:4 perfeita para WhatsApp
   async function handleDownloadImage() {
     try {
       setIsProcessing(true);
-      setFeedback('Gerando imagem em alta resolução...');
+      setFeedback('Gerando imagem no formato oficial do WhatsApp...');
 
-      const node = document.getElementById('convite-card');
+      const node = getExportNode();
       if (!node) throw new Error('Card não encontrado');
+
+      // Aguarda garantir que fontes estejam prontas
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
 
       const dataUrl = await toPng(node, {
         pixelRatio: 2,
@@ -38,14 +51,18 @@ export default function HeroSection({ countdown }) {
     }
   }
 
-  // Compartilhar a imagem gerada diretamente no WhatsApp
+  // Compartilhar a imagem gerada na proporção 3:4 diretamente no WhatsApp
   async function handleShareWhatsApp() {
     try {
       setIsProcessing(true);
       setFeedback('Preparando convite para envio...');
 
-      const node = document.getElementById('convite-card');
+      const node = getExportNode();
       if (!node) throw new Error('Card não encontrado');
+
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
 
       const blob = await toBlob(node, {
         pixelRatio: 2,
@@ -103,8 +120,15 @@ export default function HeroSection({ countdown }) {
       <div className="hero-ambient-bg" aria-hidden="true" />
 
       <div className="container hero-master-container">
-        {/* Cartão Oficial do Convite (Único em todo o site) */}
+        {/* Cartão Oficial do Convite Interativo (Responsivo para telas) */}
         <InvitationCard id="convite-card" countdown={countdown} />
+
+        {/* Cartão com Proporção Áurea 3:4 (1200x1600) Estritamente para Exportação WhatsApp */}
+        <InvitationCard
+          id="convite-export-card"
+          countdown={countdown}
+          isExport={true}
+        />
 
         {/* Barra de Ações Rápidas Diretas */}
         <div className="master-hero-actions">

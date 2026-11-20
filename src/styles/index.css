@@ -952,6 +952,173 @@ a {
   font-style: normal;
 }
 
+/* ==========================================================================
+   FORMATO OFICIAL DE EXPORTAÇÃO WHATSAPP (Proporção Exata 3:4 — 1200x1600)
+   Calibrado para caber 100% no balão de conversa do WhatsApp sem nenhum corte
+   ========================================================================== */
+.native-invite-card--export {
+  width: 600px !important;
+  height: 800px !important;
+  min-height: 800px !important;
+  max-width: 600px !important;
+  max-height: 800px !important;
+  box-sizing: border-box !important;
+  padding: 24px 32px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  position: fixed !important;
+  left: -9999px !important;
+  top: 0 !important;
+  pointer-events: none !important;
+  z-index: -999 !important;
+  border-radius: 18px !important;
+  background-color: #FAF9F6 !important;
+  background-image: radial-gradient(circle at 50% 18%, #FFFFFF 0%, #FAF8F4 75%) !important;
+  border: 1.5px solid #C8AD7F !important;
+}
+
+.native-invite-card--export::before {
+  inset: 8px !important;
+  border-radius: 12px !important;
+}
+
+.native-invite-card--export .concert-corner {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.native-invite-card--export .olive-corner {
+  width: 55px !important;
+  height: 55px !important;
+  opacity: 0.85 !important;
+}
+
+.native-invite-card--export .invite-top-filigree {
+  width: 125px !important;
+  margin: 0 auto !important;
+}
+
+.native-invite-card--export .invite-eyebrow-line {
+  margin: 2px auto 4px !important;
+  max-width: 300px !important;
+}
+
+.native-invite-card--export .eyebrow-text {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.26em !important;
+}
+
+.native-invite-card--export .invite-main-title {
+  font-size: 2.6rem !important;
+  margin: 0 0 4px !important;
+  line-height: 1.05 !important;
+}
+
+.native-invite-card--export .invite-ribbon-wrapper {
+  margin: 0 auto 4px !important;
+}
+
+.native-invite-card--export .invite-ribbon-badge {
+  font-size: 1.05rem !important;
+  padding: 3px 18px !important;
+}
+
+.native-invite-card--export .invite-quote-subtitle {
+  font-size: 0.95rem !important;
+  margin: 2px auto 8px !important;
+  line-height: 1.35 !important;
+}
+
+.native-invite-card--export .invite-centerpiece-area {
+  margin: 0 auto 6px !important;
+  max-width: 380px !important;
+}
+
+.native-invite-card--export .church-facade-svg {
+  max-width: 350px !important;
+}
+
+.native-invite-card--export .floating-clef-bg {
+  width: 60px !important;
+  height: 100px !important;
+  left: -8px !important;
+  top: -8px !important;
+}
+
+.native-invite-card--export .floating-stave-notes {
+  width: 95px !important;
+  height: 75px !important;
+  right: -4px !important;
+  top: -12px !important;
+}
+
+.native-invite-card--export .invite-details-group {
+  gap: 6px !important;
+  max-width: 380px !important;
+}
+
+.native-invite-card--export .invite-card-badge {
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+}
+
+.native-invite-card--export .badge-icon {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.native-invite-card--export .badge-text {
+  font-size: 1.15rem !important;
+}
+
+.native-invite-card--export .invite-time-rule-row {
+  margin: 1px auto !important;
+}
+
+.native-invite-card--export .time-rule-content {
+  font-size: 1.05rem !important;
+}
+
+.native-invite-card--export .countdown-pill-header {
+  font-size: 0.68rem !important;
+  padding: 3px 14px !important;
+  margin-bottom: -8px !important;
+}
+
+.native-invite-card--export .countdown-display-card {
+  padding: 12px 6px 10px !important;
+  border-radius: 10px !important;
+}
+
+.native-invite-card--export .unit-number {
+  font-size: 1.65rem !important;
+}
+
+.native-invite-card--export .unit-label {
+  font-size: 0.58rem !important;
+}
+
+.native-invite-card--export .countdown-unit-divider {
+  height: 28px !important;
+}
+
+.native-invite-card--export .invite-scripture-footer {
+  margin-top: 4px !important;
+}
+
+.native-invite-card--export .scripture-verse {
+  font-size: 0.95rem !important;
+  margin: 2px 0 4px !important;
+  line-height: 1.35 !important;
+}
+
+.native-invite-card--export .scripture-ref {
+  font-size: 0.7rem !important;
+}
+
+
 
 /* Ações Rápidas no Hero */
 .master-hero-actions {

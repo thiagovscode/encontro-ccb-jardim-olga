@@ -6,14 +6,20 @@ import {
   TopFiligreeOrnament
 } from './CcbVisuals';
 
-export default function InvitationCard({ id = 'convite-card', countdown, className = '' }) {
+export default function InvitationCard({
+  id = 'convite-card',
+  countdown,
+  className = '',
+  isExport = false
+}) {
   const { phase, days, hours, minutes, seconds, statusText } = countdown || {};
 
   return (
     <article
       id={id}
-      className={`native-invite-card ${className}`}
+      className={`native-invite-card ${isExport ? 'native-invite-card--export' : ''} ${className}`}
       aria-label="Convite Oficial — Encontro CCB Jardim Olga"
+      aria-hidden={isExport ? 'true' : undefined}
     >
       {/* Cantoneiras Clássicas Ornamentais nos 4 Cantos */}
       <ConcertCornerOrnament position="top-left" />
@@ -82,7 +88,7 @@ export default function InvitationCard({ id = 'convite-card', countdown, classNa
         </div>
 
         {/* 4. Bloco da Contagem Regressiva em Tempo Real */}
-        <div id="contador" className="invite-countdown-block" aria-live="polite">
+        <div id={isExport ? undefined : 'contador'} className="invite-countdown-block" aria-live="polite">
           <div className="countdown-pill-header">
             <span>CONTAGEM REGRESSIVA</span>
           </div>
